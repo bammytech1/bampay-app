@@ -8,7 +8,7 @@ export const Testimonial = () => {
         <h2 className="text-center text-2xl md:text-5xl font-bold text-base-100 ">
           Testimonials
         </h2>
-        <p className="text-center text-base ">
+        <p className="text-center text-neutral md:text-lg ">
           Millions have already successfully used Bamcoins and they have had a
           lot of nice things to say about us.
         </p>
@@ -57,15 +57,12 @@ export const Testimonial = () => {
 const Slides = (props) => {
   const { title, description, date } = props.feed;
   return (
-    <div className=" mb-2 rounded-3xl flex flex-col group bg-success border-[1px] border-pry-color justify-center p-8 items-center ">
-      <div className="flex flex-col items-start">
-        <a
-          href="#"
-          className=" block text-dark font-bold text-left hover:text-primary transition-colors duration-150 text-lg md:text-xl mb-2"
-        >
+    <div className=" mb-2 rounded-3xl flex flex-col group bg-neutral border-[1px] border-pry-color justify-center p-8 items-center ">
+      <div className="flex flex-col items-start gap-2 md:gap-4">
+        <p className=" block text-dark font-bold text-left hover:text-primary transition-colors duration-150 text-lg md:text-xl mb-2">
           {title}
-        </a>
-        <p className="mb-2 font-normal  text-sm md:text-sm text-left text-neutral">
+        </p>
+        <p className="mb-2 font-normal  text-sm md:text-sm text-left text-primary">
           {description}
         </p>
         <p>{date}</p>

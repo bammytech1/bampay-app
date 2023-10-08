@@ -67,7 +67,7 @@ function Hero() {
           <h1 className="text-4xl text-neutral text-center font-bold mb-2 md:text-6xl lg:text-7xl">
             Buy Crypto with prepaid cards or <br /> Debit card
           </h1>
-          <p className="text-center  text-base-300  md:text-lg ">
+          <p className="text-center  text-neutral  md:text-lg ">
             Trade you unwanted prepaid cards for up to 80% of their value
           </p>
           <div className="place-content-center gap-1  grid md:grid-cols-2 ">
@@ -171,7 +171,7 @@ function Hero() {
                               className="bg-transparent outline-0   w-full "
                             />
                           </div>
-                          <select className=" select font-bold bg-transparent text-neutral">
+                          <select className=" select  font-bold bg-base-200 text-neutral">
                             <option selected>VANILLA VISA</option>
                             <option>VANILLA VISA</option>
                             <option>VANILLA MASTER</option>

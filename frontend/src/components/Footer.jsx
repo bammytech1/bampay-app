@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <>
-      <footer className="footer  rounded-t-3xl md:rounded-t-[100px] md:place-items-center p-10 bg-primary text-base-200">
+      <footer className="footer  rounded-t-3xl md:rounded-t-[100px] md:place-items-center p-10 bg-primary text-neutral">
         <div className="footer container max-w-7xl md:place-items-center">
           <nav className="">
             <header className="footer-title">Services</header>
@@ -25,7 +25,7 @@ function Footer() {
           </nav>
         </div>
       </footer>
-      <footer className="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+      <footer className="footer px-10 py-4 border-t bg-neutral text-base-content border-accent">
         <aside className="items-center grid-flow-col">
           <div>logo</div>
           <p>
