@@ -12,20 +12,21 @@ function Header() {
 
   return (
     <>
-      <header className="w-full  md:bg-neutral flex items-center justify-center ">
-        <nav className="w-full container max-w-7xl  bg-neutral text-primary m-4 md:m-0 p-4 rounded-2xl md:rounded-none ">
+      <header className="w-full z-50 fixed md:bg-base-100 flex items-center justify-center ">
+        <nav className="w-full  container max-w-7xl  bg-neutral text-base-300  m-4 md:m-0 p-4 rounded-2xl md:rounded-none md:py-8 ">
           <div className="flex items-center w-full justify-around">
             <div className="md:hidden" onClick={() => setMenu(!menu)}>
               {menu ? <IoClose size={"25px"} /> : <IoMenu size={"25px"} />}
             </div>
 
             <div>Logo</div>
-            <ul className="hidden md:flex justify-between items-center gap-4">
+            <ul className="hidden md:flex justify-between items-center gap-6">
               <Link to={"#"}>Company</Link>
-              <Link to={"#"}>Resourses</Link>
+              <Link to={"#"}>Resources</Link>
               <Link to={"#"}>blogs</Link>
               <Link to={"#"}>Prices</Link>
               <Link to={"#"}>FAQs</Link>
+              <input type="checkbox" className="toggle toggle-lg" />
               <Link
                 to="#"
                 className="btn btn-success rounded-3xl text-neutral hidden md:flex"
@@ -34,7 +35,6 @@ function Header() {
                 Buy Crypto
               </Link>
             </ul>
-            <input type="checkbox" className="toggle toggle-lg" />
             <IoNotificationsOutline size={"30px"} className="md:hidden" />
           </div>
         </nav>

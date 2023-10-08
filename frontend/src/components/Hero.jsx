@@ -62,15 +62,15 @@ function Hero() {
   });
   return (
     <>
-      <section className="  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  ">
-        <div className="container  w-full max-w-7xl  ">
+      <section className="  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-32  ">
+        <div className="container   w-full max-w-7xl md:py-8 ">
           <h1 className="text-4xl text-neutral text-center font-bold mb-2 md:text-6xl lg:text-7xl">
             Buy Crypto with prepaid cards or <br /> Debit card
           </h1>
-          <p className="text-center  text-neutral  md: ">
+          <p className="text-center  text-base-300  md:text-lg ">
             Trade you unwanted prepaid cards for up to 80% of their value
           </p>
-          <div className="place-content-center gap-1  grid md:grid-cols-2 mt-4">
+          <div className="place-content-center gap-1  grid md:grid-cols-2 ">
             <motion.picture
               initial={{ y: "2rem", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -82,7 +82,7 @@ function Hero() {
             >
               <img className="" src={hero} alt="wallet icon" />
             </motion.picture>
-            <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-transparent border rounded-3xl ">
+            <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
               <div
                 className="w-full  flex flex-col items-center"
                 aria-multiselectable="false"
@@ -94,9 +94,9 @@ function Hero() {
                 >
                   <li className="" role="presentation">
                     <button
-                      className={`btn btn-neutral rounded-3xl px-7 ${
+                      className={`btn btn-accent text-neutral  rounded-3xl px-7 ${
                         tabSelected.currentTab === 1
-                          ? "btn-success text-white hover:btn-neutral focus:btn-accent disabled:bg-emerald-300"
+                          ? "btn-success bordered border-neutral text-white hover:btn-neutral focus:btn-primary disabled:bg-emerald-300"
                           : "w-full justify-self-center "
                       }`}
                       id="tab-label-1e"
@@ -117,9 +117,9 @@ function Hero() {
                   </li>
                   <li className="" role="presentation">
                     <button
-                      className={`btn btn-neutral rounded-3xl px-7 ${
+                      className={`btn  btn-accent text-neutral rounded-3xl px-7 ${
                         tabSelected.currentTab === 2
-                          ? "btn-success text-white hover:btn-neutral focus:btn-accent disabled:bg-emerald-300"
+                          ? "btn-success bordered border-neutral text-white hover:btn-neutral focus:btn-primary disabled:bg-emerald-300"
                           : "w-full justify-self-center"
                       }`}
                       id="tab-label-2e"
@@ -152,7 +152,7 @@ function Hero() {
                     aria-labelledby="tab-label-1e"
                     tabIndex="-1"
                   >
-                    <div className="flex flex-col items-center mb-2">
+                    <div className="flex flex-col items-center mb-4 text-neutral gap-2 ">
                       <p className="font-thin">Estimated price</p>
                       <span className="font-semibold">1BTC - 21.443</span>
                     </div>
@@ -161,8 +161,8 @@ function Hero() {
                       className="w-full  flex flex-col items-center gap-4"
                     >
                       <div className="relative flex flex-col gap-2">
-                        <div className=" w-full flex gap-2 p-2 bg-base-100  rounded-3xl">
-                          <div className="ml-2">
+                        <div className=" w-full flex gap-2 p-2 bg-base-200  rounded-3xl">
+                          <div className="ml-2 text-neutral">
                             <label htmlFor="">spend</label>
                             <input
                               type="text"
@@ -171,14 +171,14 @@ function Hero() {
                               className="bg-transparent outline-0   w-full "
                             />
                           </div>
-                          <select className=" select font-bold ">
+                          <select className=" select font-bold bg-transparent text-neutral">
                             <option selected>VANILLA VISA</option>
                             <option>VANILLA VISA</option>
                             <option>VANILLA MASTER</option>
                             <option>AMEX VISA</option>
                             <option>AMEX MASTER</option>
                           </select>
-                          <select className="select select-primary rounded-3xl  ">
+                          <select className="select select-accent bg-base-200 rounded-3xl  text-neutral ">
                             <option selected>USD</option>
                             <option>CAD</option>
                             <option>AUD</option>
@@ -186,10 +186,10 @@ function Hero() {
                             <option>EUR</option>
                           </select>
                         </div>
-                        <span className="flex items-center justify-center absolute w-10 h-10 rounded-full bg-primary left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 ">
+                        <span className="flex text-neutral items-center justify-center absolute w-10 h-10 rounded-full bg-primary left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 ">
                           <IoRepeat size={"30px"} />
                         </span>
-                        <div className="w-full flex justify-between p-2 bg-base-100  rounded-3xl">
+                        <div className="w-full flex justify-between p-2 bg-base-200 text-neutral  rounded-3xl">
                           <div className="ml-2">
                             <label htmlFor="">receive</label>
                             <input
@@ -199,7 +199,7 @@ function Hero() {
                               className="bg-transparent   w-full max-w-xs"
                             />
                           </div>
-                          <select className="select select-primary right-0 rounded-3xl">
+                          <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
                             <option selected>USD</option>
                             <option>CAD</option>
                             <option>AUD</option>
@@ -210,11 +210,11 @@ function Hero() {
                       </div>
                       <Link
                         to={"#"}
-                        className="capitalize w-full btn  btn-primary border-2 rounded-3xl border-neutral"
+                        className="capitalize w-full btn  btn-primary text-neutral hover:bg-base-300 border-2 rounded-3xl border-success"
                       >
                         Login/Register
                       </Link>
-                      <p className="flex gap-2 ">
+                      <p className="flex gap-2 text-neutral items-center justify-center ">
                         we accept{" "}
                         <span className="flex gap-2 ">
                           <img src={visa} alt="" />
