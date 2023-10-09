@@ -17,7 +17,7 @@ export const GetStarted = () => {
               />
             </picture>
           </div>
-          <div className="flex flex-col items-center py-8 px-6 gap-5 text-base-100 md:absolute top-0 left-0 bg-primary h-full place-content-center rounded-br-[93px] md:rounded-tl-[250px] md:rounded-br-[250px] md:bg-opacity-50 md:px-6 md:w-1/2 ">
+          <div className="flex flex-col items-center py-8 px-6 gap-5 text-base-100 md:absolute top-0 left-0 bg-base-200 h-full place-content-center rounded-br-[93px] md:rounded-tl-[250px] md:rounded-br-[250px] md:bg-opacity-50 md:px-6 md:w-1/2 ">
             <h2 className=" text-center text-4xl font-bold md:text-6xl">
               Buy & Sell <br /> Crypto <br /> with <br />{" "}
               <span className="text-4xl font-bold text-success">

@@ -6,15 +6,17 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#000000",
+          primary: "#39a798",
 
           secondary: "#FFD708",
 
-          accent: "#485D73",
+          accent: "#828282",
 
           neutral: "#f2f2f2",
 
-          "base-100": "#f2f2f2", //"#141414",
+          "base-100": "#f2f2f2",
+          "base-200": "#4f4f4f",
+          "base-300": "#000000",
 
           info: "#3abff8",
 

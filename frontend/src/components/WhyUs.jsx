@@ -5,16 +5,16 @@ import first from "../assets/undraw3.svg";
 export const WhyUs = () => {
   return (
     <>
-      <section className="w-full flex flex-col justify-center items-center   ">
+      <section className="w-full flex flex-col justify-center items-center py-8 gap-4  ">
         <h2 className="text-center text-2xl md:text-5xl font-bold ">
           Why Bamcoins?
         </h2>
-        <p className="text-center text-base max-w-xs ">
+        <p className="text-center text-base max-w-xs md:max-w-full ">
           We designed it to be simple, secure and also protect our clients
           Privacy.
         </p>
         <div className="  bg-primary w-full flex flex-col justify-center items-center rounded-3xl md:rounded-[100px] ">
-          <div className="w-full container max-w-7xl bg-primary  py-7 px-7 flex flex-col items-center gap-8 md:flex-row  ">
+          <div className="w-full container max-w-7xl bg-primary  py-7 md:py-20 px-7 flex flex-col items-center gap-8 md:flex-row  ">
             <div className="flex flex-col items-center gap-3">
               <img src={first} alt="Business deal" />
               <h3 className="text-center text-xl text-neutral font-bold  ">
