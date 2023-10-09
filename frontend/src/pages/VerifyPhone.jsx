@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import image from "../assets/loginimage.svg";
+import image from "../assets/loginnn.svg";
 import verify from "../assets/autenticate icon.svg";
 import { Link } from "react-router-dom";
 import MinFooter from "../components/MinFooter";
 import OtpInput from "react-otp-input";
 import { CgSpinner } from "react-icons/cg";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+
 import "../index.css";
 
 import { useState } from "react";
@@ -18,7 +20,13 @@ const VerifyPhone = () => {
     <>
       <section className=" mb-6 bg-primary w-full h-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  ">
         <div className="container   w-full  max-w-7xl  ">
-          <div className="place-item-center gap-1  grid md:grid-cols-2 mt-4">
+          <div className="relative place-item-center gap-1  grid md:grid-cols-2 mt-4">
+            <Link
+              to={"/login"}
+              className="text-neutral absolute -top-8 left-1/2 -translate-x-1/2 md:top-0 md:left-10"
+            >
+              <IoArrowBackCircleSharp size={"40px"} />
+            </Link>
             <motion.picture
               initial={{ y: "2rem", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -47,6 +55,10 @@ const VerifyPhone = () => {
                         onChange={(phone) => setPhone(phone)}
                         className="phone-container"
                       />
+                      <p>
+                        You will receive a verification code when you sign in on
+                        a new device.
+                      </p>
                       <Link
                         onClick={() => setLoading(!loading)}
                         className="w-full rounded-3xl text-white transition-all btn btn-primary hover:btn-neutral focus:outline-none"
@@ -70,23 +82,22 @@ const VerifyPhone = () => {
                         renderInput={(props) => <input {...props} />}
                         containerStyle={"otp-container"}
                       />
+                      <p>
+                        A Six degit code has been sent to phone number provided.
+                      </p>
                       <Link
+                        to={"/trade"}
                         onClick={() => setLoading(!loading)}
                         className="w-full rounded-3xl text-white transition-all btn btn-primary hover:btn-neutral focus:outline-none"
                       >
                         {" "}
-                        {loading && (
+                        {loading || (
                           <CgSpinner size={"20px"} className="animate-spin" />
                         )}
                         <span>verify code</span>
                       </Link>
                     </div>
                   )}
-
-                  <p>
-                    You will receive a verification code when you sign in on a
-                    new device.
-                  </p>
                 </form>
               </div>
             </div>

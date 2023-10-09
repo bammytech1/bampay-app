@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import image from "../assets/loginimage.svg";
+import image from "../assets/loginnn.svg";
 import mail from "../assets/mail icon.svg";
 import { Link } from "react-router-dom";
 import MinFooter from "../components/MinFooter";

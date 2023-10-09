@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import image from "../assets/loginimage.svg";
+import image from "../assets/loginnn.svg";
 import { Link } from "react-router-dom";
 import MinFooter from "../components/MinFooter";
 const Login = () => {
@@ -76,8 +76,8 @@ const Login = () => {
                 </form>
 
                 <Link
-                  to={"/"}
-                  className=" btn-success border-white-500 group m-auto   inline-flex h-12 w-[320px] items-center justify-center space-x-2 rounded-3xl border px-4 py-2 transition-colors duration-300 hover:border-blue-500 hover:btn-secondary focus:outline-none"
+                  to={"/verifyPhone"}
+                  className=" btn-secondary border-white-500 group m-auto   inline-flex h-12 w-[320px] items-center justify-center space-x-2 rounded-3xl border px-4 py-2 transition-colors duration-300 hover:border-blue-500 hover:btn-secondary focus:outline-none"
                 >
                   Go Anonymously
                 </Link>

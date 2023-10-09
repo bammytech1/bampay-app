@@ -13,8 +13,8 @@ function Header() {
 
   return (
     <>
-      <header className="w-full  md:bg-neutral flex items-center justify-center ">
-        <nav className="w-full container max-w-7xl  bg-neutral text-primary m-4 md:m-0 p-4 rounded-2xl md:rounded-none ">
+      <header className="w-full fixed z-50  md:bg-neutral flex items-center justify-center ">
+        <nav className="w-full container max-w-7xl  bg-neutral text-base-300 m-4 md:m-0 p-4 rounded-2xl md:rounded-none ">
           <div className="flex items-center w-full justify-around">
             <div className="md:hidden" onClick={() => setMenu(!menu)}>
               {menu ? <IoClose size={"25px"} /> : <IoMenu size={"25px"} />}
@@ -27,13 +27,6 @@ function Header() {
               <Link to={"#"}>blogs</Link>
               <Link to={"#"}>Prices</Link>
               <Link to={"#"}>FAQs</Link>
-              <Link
-                to="#"
-                className="btn btn-success rounded-3xl text-neutral hidden md:flex"
-                type="button"
-              >
-                Buy Crypto
-              </Link>
             </ul>
             <input type="checkbox" className="toggle toggle-lg" />
             <div className="flex-none gap-2">
@@ -63,6 +56,13 @@ function Header() {
                 </ul>
               </div>
             </div>
+            <Link
+              to="#"
+              className="btn btn-success rounded-3xl text-neutral hidden md:flex"
+              type="button"
+            >
+              Buy Crypto
+            </Link>
           </div>
         </nav>
 

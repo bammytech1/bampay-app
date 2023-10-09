@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import VerifyMail from "./pages/VerifyMail";
 import Register from "./pages/Register";
 import VerifyPhone from "./pages/VerifyPhone";
+import Trade from "./pages/Trade";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="verifyMail" element={<VerifyMail />} />
           <Route path="verifyPhone" element={<VerifyPhone />} />
+          <Route path="trade" element={<Trade />} />
         </Route>
       </Routes>
     </BrowserRouter>
