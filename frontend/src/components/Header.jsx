@@ -3,6 +3,7 @@ import {
   IoMenu,
   IoClose,
   IoNotificationsOutline,
+  IoPersonCircleOutline,
   //   IoNotificationsSharp,
 } from "react-icons/io5";
 import { useState } from "react";
@@ -35,7 +36,33 @@ function Header() {
               </Link>
             </ul>
             <input type="checkbox" className="toggle toggle-lg" />
-            <IoNotificationsOutline size={"30px"} className="md:hidden" />
+            <div className="flex-none gap-2">
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <IoPersonCircleOutline size={"40px"} />
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <a>Logout</a>
+                  </li>
+                  <li>
+                    <IoNotificationsOutline size={"40px"} />
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </nav>
 

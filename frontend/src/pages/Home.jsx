@@ -1,6 +1,7 @@
 import { Advantages } from "../components/Advantages";
 import { Details } from "../components/Details";
 import { Faq } from "../components/Faq";
+import Footer from "../components/Footer";
 import { GetStarted } from "../components/GetStarted";
 import Hero from "../components/Hero";
 import { JoinNews } from "../components/JoinNews";
@@ -20,6 +21,7 @@ function Home() {
         <Latest />
         <Faq />
         <JoinNews />
+        <Footer />
       </main>
     </>
   );
