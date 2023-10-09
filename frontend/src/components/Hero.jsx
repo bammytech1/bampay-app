@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { IoRepeat } from "react-icons/io5";
 import visa from "../assets/Visa_icon.png";
 import master from "../assets/Mastercard-icon.png";
-import hero from "../assets/hero.svg";
+import hero from "../assets/forhero.svg";
 
 function Hero() {
   const [tabSelected, setTabSelected] = useState({

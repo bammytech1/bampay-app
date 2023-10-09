@@ -20,9 +20,9 @@ const Login = () => {
               <img className="" src={image} alt="wallet icon" />
             </motion.picture>
             <div className="flex  items-center justify-center">
-              <div className="flex h-fit  w-full flex-col items-center justify-center rounded-3xl gap-4  shadow py-6">
+              <div className="flex h-fit  w-full flex-col items-center justify-center rounded-3xl gap-4  py-6">
                 <form className="bg-base-100 w-full max-w-sm m-auto flex-col rounded-3xl   shadow  space-y-8 p-10 text-center">
-                  <p className="text-primary text-center text-2xl max-w-xs">
+                  <p className="text-base-300 text-center text-2xl max-w-xs">
                     Sign in or create an account
                   </p>
                   <div className="group relative">

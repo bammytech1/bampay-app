@@ -2,13 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
---react-international-phone-height:	60px,
---react-international-phone-background-color:	red,
---react-international-phone-text-color:	#222,
---react-international-phone-font-size:	30px,
---react-international-phone-border-radius:	100px,
---react-international-phone-border-color:	gainsboro,
---react-international-phone-disabled-background-color:	whitesmoke,
---react-international-phone-disabled-text-color:	#666,
+.otp-container {
+  @apply !flex !justify-between !gap-2;
+}
+
+.otp-container input {
+  @apply !mr-0 flex-1 py-4 outline-none border border-base-300 rounded-xl;
+}
+
+.phone-container {
+  @apply w-full bg-neutral  mt-2 px-3 py-2 border border-base-300  rounded-3xl;
+}
+
+.phone-container input {
+  @apply w-full !bg-transparent !border-0 !outline-none;
+}
+.react-international-phone-country-selector-button {
+  @apply !border-0 !outline-none !bg-transparent;
 }
