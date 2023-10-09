@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+--react-international-phone-height:	60px,
+--react-international-phone-background-color:	red,
+--react-international-phone-text-color:	#222,
+--react-international-phone-font-size:	30px,
+--react-international-phone-border-radius:	100px,
+--react-international-phone-border-color:	gainsboro,
+--react-international-phone-disabled-background-color:	whitesmoke,
+--react-international-phone-disabled-text-color:	#666,
+}

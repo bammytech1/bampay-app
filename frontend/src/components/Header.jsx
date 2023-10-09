@@ -3,6 +3,7 @@ import {
   IoMenu,
   IoClose,
   IoNotificationsOutline,
+  IoPersonCircleOutline,
   //   IoNotificationsSharp,
 } from "react-icons/io5";
 import { useState } from "react";
@@ -12,21 +13,20 @@ function Header() {
 
   return (
     <>
-      <header className="w-full z-50 fixed md:bg-base-100 flex items-center justify-center ">
-        <nav className="w-full  container max-w-7xl  bg-neutral text-base-300  m-4 md:m-0 p-4 rounded-2xl md:rounded-none md:py-8 ">
+      <header className="w-full  md:bg-neutral flex items-center justify-center ">
+        <nav className="w-full container max-w-7xl  bg-neutral text-primary m-4 md:m-0 p-4 rounded-2xl md:rounded-none ">
           <div className="flex items-center w-full justify-around">
             <div className="md:hidden" onClick={() => setMenu(!menu)}>
               {menu ? <IoClose size={"25px"} /> : <IoMenu size={"25px"} />}
             </div>
 
             <div>Logo</div>
-            <ul className="hidden md:flex justify-between items-center gap-6">
+            <ul className="hidden md:flex justify-between items-center gap-4">
               <Link to={"#"}>Company</Link>
-              <Link to={"#"}>Resources</Link>
+              <Link to={"#"}>Resourses</Link>
               <Link to={"#"}>blogs</Link>
               <Link to={"#"}>Prices</Link>
               <Link to={"#"}>FAQs</Link>
-              <input type="checkbox" className="toggle toggle-lg" />
               <Link
                 to="#"
                 className="btn btn-success rounded-3xl text-neutral hidden md:flex"
@@ -35,7 +35,34 @@ function Header() {
                 Buy Crypto
               </Link>
             </ul>
-            <IoNotificationsOutline size={"30px"} className="md:hidden" />
+            <input type="checkbox" className="toggle toggle-lg" />
+            <div className="flex-none gap-2">
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <IoPersonCircleOutline size={"40px"} />
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <a>Logout</a>
+                  </li>
+                  <li>
+                    <IoNotificationsOutline size={"40px"} />
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </nav>
 
