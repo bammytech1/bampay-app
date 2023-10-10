@@ -1,10 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { HashLink as Link } from "react-router-hash-link";
-import { IoRepeat } from "react-icons/io5";
+import {
+  IoArrowUp,
+  IoCardOutline,
+  IoChevronDownOutline,
+  IoChevronUpOutline,
+  IoRepeat,
+} from "react-icons/io5";
 import visa from "../../assets/Visa_icon.png";
 import master from "../../assets/Mastercard-icon.png";
 
 export const Trading = () => {
+  const [check, setCheck] = useState(false);
   const [tabSelected, setTabSelected] = useState({
     currentTab: 1,
     noTabs: 3,
@@ -60,7 +67,7 @@ export const Trading = () => {
   });
   return (
     <>
-      <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
+      <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
         <div
           className="w-full  flex flex-col items-center"
           aria-multiselectable="false"
@@ -136,52 +143,104 @@ export const Trading = () => {
                 action=""
                 className="w-full  flex flex-col items-center gap-4"
               >
-                <div className="relative flex flex-col gap-2">
-                  <div className=" w-full flex gap-2 p-2 bg-base-200  rounded-3xl">
-                    <div className="ml-2 text-neutral">
-                      <label htmlFor="">spend</label>
-                      <input
-                        type="text"
-                        min={"3"}
-                        placeholder="0.00"
-                        className="bg-transparent outline-0   w-full "
-                      />
+                <div>
+                  <div className="relative flex flex-col gap-2">
+                    <div className=" w-full flex gap-2 p-2 bg-base-200  rounded-3xl">
+                      <div className="ml-2 text-neutral">
+                        <label htmlFor="">spend</label>
+                        <input
+                          type="text"
+                          min={"3"}
+                          placeholder="0.00"
+                          className="bg-transparent outline-none   w-full "
+                        />
+                      </div>
+
+                      <button
+                        onClick={() => setCheck(!check)}
+                        type="checked"
+                        className="btn btn-accent bg-base-200 rounded-3xl   text-neutral "
+                      >
+                        <div className="flex flex-col items-start m-auto">
+                          <h3 className="text-base font-bold ">USD</h3>
+                          <p className="text-xs font-normal ">Vanilla visa</p>
+                        </div>
+                        <span>
+                          {check ? (
+                            <IoChevronUpOutline size={"20"} />
+                          ) : (
+                            <IoChevronDownOutline size={"20"} />
+                          )}
+                        </span>
+                      </button>
                     </div>
-                    <select className=" select  font-bold bg-base-200 text-neutral">
-                      <option selected>VANILLA VISA</option>
-                      <option>VANILLA VISA</option>
-                      <option>VANILLA MASTER</option>
-                      <option>AMEX VISA</option>
-                      <option>AMEX MASTER</option>
-                    </select>
-                    <select className="select select-accent bg-base-200 rounded-3xl  text-neutral ">
-                      <option selected>USD</option>
-                      <option>CAD</option>
-                      <option>AUD</option>
-                      <option>GBP</option>
-                      <option>EUR</option>
-                    </select>
+                    {check && (
+                      <div className=" top-16 absolute left-1/2 -translate-x-1/2 flex flex-col p-5 gap-4 bg-base-200 rounded-3xl">
+                        <input
+                          type="search"
+                          placeholder="search"
+                          id="search"
+                          className="p-2 rounded-3xl "
+                        />
+                        <div className="flex justify-between">
+                          <div className="flex flex-col">
+                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border border-neutral rounded-3xl ">
+                              <IoCardOutline size={"20px"} />
+                              DebitCard
+                            </div>
+                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border border-neutral rounded-3xl ">
+                              <IoCardOutline size={"20px"} />
+                              Prepaid GiftCard
+                            </div>
+                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border border-neutral rounded-3xl ">
+                              <IoCardOutline size={"20px"} />
+                              Bank Transfer
+                            </div>
+                          </div>
+                          <div className="divider"></div>
+                          <div className="Curency-types">
+                            <li>
+                              <a href="#">NGN</a>
+                            </li>
+                            <li>
+                              <a href="#">EUR</a>
+                            </li>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <span className="flex text-neutral items-center justify-center absolute w-10 h-10 rounded-full bg-primary left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 ">
+                      <IoRepeat size={"30px"} />
+                    </span>
+                    <div className="w-full flex justify-between p-2 bg-base-200 text-neutral  rounded-3xl">
+                      <div className="ml-2">
+                        <label htmlFor="">receive</label>
+                        <input
+                          type="text"
+                          min={"3"}
+                          placeholder="0.00"
+                          className="bg-transparent  outline-none w-full max-w-xs"
+                        />
+                      </div>
+                      <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
+                        <option selected>USD</option>
+                        <option>CAD</option>
+                        <option>AUD</option>
+                        <option>GBP</option>
+                        <option>EUR</option>
+                      </select>
+                    </div>
                   </div>
-                  <span className="flex text-neutral items-center justify-center absolute w-10 h-10 rounded-full bg-primary left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 ">
-                    <IoRepeat size={"30px"} />
-                  </span>
-                  <div className="w-full flex justify-between p-2 bg-base-200 text-neutral  rounded-3xl">
-                    <div className="ml-2">
-                      <label htmlFor="">receive</label>
+                  <div className=" w-full flex gap-2 p-2 bg-base-200 mt-2  rounded-3xl">
+                    <div className="ml-2 text-neutral">
+                      <label htmlFor="">USDT ADDRESS</label>
                       <input
                         type="text"
                         min={"3"}
-                        placeholder="0.00"
-                        className="bg-transparent   w-full max-w-xs"
+                        placeholder="3468adsqweuygbwryuvasdgbafshhkhiuia"
+                        className="bg-transparent outline-none   w-full "
                       />
                     </div>
-                    <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
-                      <option selected>USD</option>
-                      <option>CAD</option>
-                      <option>AUD</option>
-                      <option>GBP</option>
-                      <option>EUR</option>
-                    </select>
                   </div>
                 </div>
                 <Link
@@ -236,7 +295,7 @@ export const Trading = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

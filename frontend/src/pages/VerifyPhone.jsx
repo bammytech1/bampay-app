@@ -18,7 +18,7 @@ const VerifyPhone = () => {
   const [loading, setLoading] = useState(false);
   return (
     <>
-      <section className=" mb-6 bg-primary w-full h-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  ">
+      <section className=" mb-6 bg-primary w-full h-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-32 ">
         <div className="container   w-full  max-w-7xl  ">
           <div className="relative place-item-center gap-1  grid md:grid-cols-2 mt-4">
             <Link
