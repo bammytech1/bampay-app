@@ -257,13 +257,23 @@ export const Trading = () => {
                           className="bg-transparent  outline-none w-full max-w-xs"
                         />
                       </div>
-                      <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
-                        <option selected>USD</option>
-                        <option>CAD</option>
-                        <option>AUD</option>
-                        <option>GBP</option>
-                        <option>EUR</option>
-                      </select>
+                      <button
+                        // onClick={() => setCheck(!check)}
+                        type="button"
+                        className="btn btn-accent bg-base-200 rounded-3xl w-[130px] justify-between text-neutral "
+                      >
+                        <div className="flex flex-col items-start m-auto">
+                          <h3 className="text-base font-bold ">USDT</h3>
+                          <p className="text-xs font-normal ">Tether</p>
+                        </div>
+                        <span>
+                          {check ? (
+                            <IoChevronUpOutline size={"20"} />
+                          ) : (
+                            <IoChevronDownOutline size={"20"} />
+                          )}
+                        </span>
+                      </button>
                     </div>
                   </div>
                   <div className=" w-full flex gap-2 p-2 bg-base-200 mt-2  rounded-3xl">
