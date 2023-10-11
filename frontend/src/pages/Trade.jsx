@@ -37,33 +37,35 @@ function Trade() {
             >
               <img className="" src={tradeImage} alt="wallet icon" />
             </motion.picture>
-            <div className="flex justify-center items-center gap-4 my-2">
-              <div className="flex flex-col items-center gap-2 ">
-                <span className="border border-base-300 p-2 rounded-full ">
-                  <IoDocumentTextOutline size={"40px"} />
-                </span>
-                <p>Fill Details</p>
+            <div className="flex flex-col items-center">
+              <div className="flex justify-center items-center gap-4 my-2">
+                <div className="flex flex-col items-center gap-2 ">
+                  <span className="border border-base-300 p-2 rounded-full ">
+                    <IoDocumentTextOutline size={"40px"} />
+                  </span>
+                  <p>Fill Details</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="border border-base-300 p-2 rounded-full">
+                    <IoCardOutline size={"40px"} />
+                  </span>
+                  <p>Card Details</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="border border-base-300 p-2 rounded-full">
+                    <IoMailOpenOutline size={"40px"} />
+                  </span>
+                  <p>Verification</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="border border-base-300 p-2 rounded-full">
+                    <IoCloudUploadOutline size={"40px"} />
+                  </span>
+                  <p>Upload Image</p>
+                </div>
               </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="border border-base-300 p-2 rounded-full">
-                  <IoCardOutline size={"40px"} />
-                </span>
-                <p>Card Details</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="border border-base-300 p-2 rounded-full">
-                  <IoMailOpenOutline size={"40px"} />
-                </span>
-                <p>Verification</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="border border-base-300 p-2 rounded-full">
-                  <IoCloudUploadOutline size={"40px"} />
-                </span>
-                <p>Upload Image</p>
-              </div>
+              <Trading />
             </div>
-            <Trading />
           </div>
         </div>
       </section>

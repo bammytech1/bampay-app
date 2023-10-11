@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { HashLink as Link } from "react-router-hash-link";
 import {
   IoCardOutline,
@@ -15,6 +15,24 @@ export const Trading = () => {
   const [tabSelected, setTabSelected] = useState({
     currentTab: 1,
     noTabs: 3,
+  });
+
+  const [inputValues, setInputValues] = useState({
+    currency: "",
+    paymentType: "",
+  });
+
+  function handlePrepaidClick() {
+    if (setPrepaidCheck) {
+      return setPrepaidCheck(!prepaidCheck);
+    } else {
+      false;
+    }
+  }
+
+  const handleOnChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
   });
 
   const wrapperRef = useRef(null);
@@ -68,7 +86,9 @@ export const Trading = () => {
   return (
     <>
       <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
-        <div
+        <form
+          action=""
+          onChange={handleOnChange}
           className="w-full  flex flex-col items-center"
           aria-multiselectable="false"
         >
@@ -139,7 +159,7 @@ export const Trading = () => {
                 <p className="font-thin">Estimated price</p>
                 <span className="font-semibold">1BTC - 21.443</span>
               </div>
-              <form
+              <fieldset
                 action=""
                 className="w-full  flex flex-col items-center gap-4"
               >
@@ -181,7 +201,7 @@ export const Trading = () => {
                           <span>
                             <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
                               <option selected>USD</option>
-                              <option>CAD</option>
+                              <option>h3</option>
                               <option>AUD</option>
                               <option>GBP</option>
                               <option>EUR</option>
@@ -204,14 +224,14 @@ export const Trading = () => {
                               DebitCard
                             </div>
                             <button
-                              onClick={() => setPrepaidCheck(!prepaidCheck)}
+                              onClick={() => handlePrepaidClick()}
                               type="button"
-                              className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral "
+                              className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral focus:text-primary"
                             >
                               <IoCardOutline size={"20px"} />
                               Prepaid GiftCard
                             </button>
-                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral ">
+                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral  ">
                               <IoCardOutline size={"20px"} />
                               Bank Transfer
                             </div>
@@ -220,22 +240,22 @@ export const Trading = () => {
                           {prepaidCheck && (
                             <div className="Curency-types">
                               <ul className="flex flex-col items-start text-sm font-bold text-neutral gap-2">
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA VISA
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA VISA
                                 </li>
                               </ul>
@@ -301,7 +321,7 @@ export const Trading = () => {
                     <img src={master} alt="" />
                   </span>
                 </p>
-              </form>
+              </fieldset>
             </div>
             <div
               className={`px-6 py-4 ${
@@ -339,7 +359,7 @@ export const Trading = () => {
               </form>
             </div>
           </div>
-        </div>
+        </form>
       </section>
     </>
   );
