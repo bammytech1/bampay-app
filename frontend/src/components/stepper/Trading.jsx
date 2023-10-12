@@ -85,7 +85,7 @@ export const Trading = () => {
   });
   return (
     <>
-      <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
+      <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-neutral  rounded-3xl ">
         <form
           action=""
           onChange={handleOnChange}
@@ -155,7 +155,7 @@ export const Trading = () => {
               aria-labelledby="tab-label-1e"
               tabIndex="-1"
             >
-              <div className="flex flex-col items-center mb-4 text-neutral gap-2 ">
+              <div className="flex flex-col items-center mb-4 text-base-300 gap-2 ">
                 <p className="font-thin">Estimated price</p>
                 <span className="font-semibold">1BTC - 21.443</span>
               </div>
@@ -163,9 +163,10 @@ export const Trading = () => {
                 action=""
                 className="w-full  flex flex-col items-center gap-4"
               >
+                {/* stepper starts here */}
                 <div>
                   <div className="relative flex flex-col gap-2">
-                    <div className=" w-full flex gap-2 p-2 bg-base-200  rounded-3xl">
+                    <div className=" w-full flex gap-2 p-2 border-base-200 border-2 bg-base-100  rounded-3xl">
                       <div className="ml-2 text-neutral">
                         <label htmlFor="">spend</label>
                         <input
@@ -179,7 +180,7 @@ export const Trading = () => {
                       <button
                         onClick={() => setCheck(!check)}
                         type="button"
-                        className="btn btn-accent bg-base-200 rounded-3xl   text-neutral "
+                        className="btn btn-primary  rounded-3xl   text-neutral "
                       >
                         <div className="flex flex-col items-start m-auto">
                           <h3 className="text-base font-bold ">USD</h3>
@@ -267,7 +268,7 @@ export const Trading = () => {
                     <span className="flex text-neutral items-center justify-center absolute w-10 h-10 rounded-full bg-primary left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 ">
                       <IoRepeat size={"30px"} />
                     </span>
-                    <div className="w-full flex justify-between p-2 bg-base-200 text-neutral  rounded-3xl">
+                    <div className="w-full flex justify-between p-2 bg-neutral border-2 border-base-200 text-neutral  rounded-3xl">
                       <div className="ml-2">
                         <label htmlFor="">receive</label>
                         <input
@@ -280,7 +281,7 @@ export const Trading = () => {
                       <button
                         // onClick={() => setCheck(!check)}
                         type="button"
-                        className="btn btn-accent bg-base-200 rounded-3xl w-[130px] justify-between text-neutral "
+                        className="btn btn-primary  rounded-3xl w-[130px] justify-between text-neutral "
                       >
                         <div className="flex flex-col items-start m-auto">
                           <h3 className="text-base font-bold ">USDT</h3>
