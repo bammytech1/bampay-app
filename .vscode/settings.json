@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Splide", "splidejs"]
+  "cSpell.words": ["Splide", "splidejs"],
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
 }

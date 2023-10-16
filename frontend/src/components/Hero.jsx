@@ -67,7 +67,7 @@ function Hero() {
           <h1 className="text-4xl text-neutral text-center font-bold mb-2 md:text-6xl lg:text-7xl">
             Buy Crypto with prepaid cards or <br /> Debit card
           </h1>
-          <p className="text-center  text-neutral  md:text-lg ">
+          <p className="text-center mb-6 text-neutral  md:text-lg ">
             Trade you unwanted prepaid cards for up to 80% of their value
           </p>
           <div className="place-content-center gap-1  grid md:grid-cols-2 ">
@@ -78,7 +78,7 @@ function Hero() {
                 duration: 2,
                 type: "spring",
               }}
-              className="hidden md:flex flex-col max-w-lg md:py-20 text-center lg:py-36 gap-4 justify-center items-center md:items-start"
+              className="!hidden md:!flex flex-col max-w-lg md:py-20 text-center lg:py-36 gap-4 justify-center items-center md:items-start"
             >
               <img className="" src={hero} alt="wallet icon" />
             </motion.picture>
