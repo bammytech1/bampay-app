@@ -1,75 +1,60 @@
-import { useState, useRef, useEffect } from "react";
-import { HashLink as Link } from "react-router-hash-link";
+import { useState, useCallback } from "react";
 import {
+  IoCloudUploadOutline,
+  IoMailOpenOutline,
   IoCardOutline,
-  IoChevronDownOutline,
-  IoChevronUpOutline,
-  IoRepeat,
+  IoDocumentTextOutline,
+  IoStopwatchOutline,
+  IoCheckmarkOutline,
 } from "react-icons/io5";
-import visa from "../../assets/Visa_icon.png";
-import master from "../../assets/Mastercard-icon.png";
+import StartTrade from "./StartTrade";
+import GiftCodeDetails from "./GiftCodeDetails";
+import UploadImages from "./UploadImages";
+import Processing from "./Processing";
+import SuccessPage from "./SuccessPage";
+import DeclinePage from "./DeclinePage";
+import GetVerified from "./GetVerified";
+import Stepper from "./stepper";
 
 export const Trading = () => {
-  const [check, setCheck] = useState(false);
-  const [prepaidCheck, setPrepaidCheck] = useState(false);
-  const [tabSelected, setTabSelected] = useState({
-    currentTab: 1,
-    noTabs: 3,
+  const [inputValues, setInputValues] = useState({
+    currency: "",
+    paymentType: "",
   });
 
-  const wrapperRef = useRef(null);
+  const handleOnChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
+  });
 
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 39) {
-      if (wrapperRef.current && wrapperRef.current.contains(e.target)) {
-        if (
-          tabSelected.currentTab >= 1 &&
-          tabSelected.currentTab < tabSelected.noTabs
-        ) {
-          setTabSelected({
-            ...tabSelected,
-            currentTab: tabSelected.currentTab + 1,
-          });
-        } else {
-          setTabSelected({
-            ...tabSelected,
-            currentTab: 1,
-          });
-        }
-      }
-    }
+  const [currentStep, setCurrentStep] = useState(1);
 
-    if (e.keyCode === 37) {
-      if (wrapperRef.current && wrapperRef.current.contains(e.target)) {
-        if (
-          tabSelected.currentTab > 1 &&
-          tabSelected.currentTab <= tabSelected.noTabs
-        ) {
-          setTabSelected({
-            ...tabSelected,
-            currentTab: tabSelected.currentTab - 1,
-          });
-        } else {
-          setTabSelected({
-            ...tabSelected,
-            currentTab: tabSelected.noTabs,
-          });
-        }
-      }
+  const steps = ["Start", "Phone", "Wallet", "Image", "Process", "Finished"];
+
+  const displayStep = (step) => {
+    switch (step) {
+      case 1:
+        return <StartTrade />;
+      case 2:
+        return <GetVerified />;
+      case 3:
+        return <GiftCodeDetails />;
+      case 4:
+        return <UploadImages />;
+      case 5:
+        return <Processing />;
+      case 6:
+        return <SuccessPage />;
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  });
   return (
     <>
       <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
-        <div
-          className="w-full  flex flex-col items-center"
+        <form
+          action=""
+          onChange={handleOnChange}
+          className="w-full min-w-[300px]  flex flex-col items-center"
           aria-multiselectable="false"
         >
           <ul
@@ -139,7 +124,7 @@ export const Trading = () => {
                 <p className="font-thin">Estimated price</p>
                 <span className="font-semibold">1BTC - 21.443</span>
               </div>
-              <form
+              <fieldset
                 action=""
                 className="w-full  flex flex-col items-center gap-4"
               >
@@ -181,7 +166,7 @@ export const Trading = () => {
                           <span>
                             <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
                               <option selected>USD</option>
-                              <option>CAD</option>
+                              <option>h3</option>
                               <option>AUD</option>
                               <option>GBP</option>
                               <option>EUR</option>
@@ -204,14 +189,14 @@ export const Trading = () => {
                               DebitCard
                             </div>
                             <button
-                              onClick={() => setPrepaidCheck(!prepaidCheck)}
+                              onClick={() => handlePrepaidClick()}
                               type="button"
-                              className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral "
+                              className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral focus:text-primary"
                             >
                               <IoCardOutline size={"20px"} />
                               Prepaid GiftCard
                             </button>
-                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral ">
+                            <div className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral  ">
                               <IoCardOutline size={"20px"} />
                               Bank Transfer
                             </div>
@@ -220,22 +205,22 @@ export const Trading = () => {
                           {prepaidCheck && (
                             <div className="Curency-types">
                               <ul className="flex flex-col items-start text-sm font-bold text-neutral gap-2">
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA VISA
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA MASTER
                                 </li>
-                                <li className="cursor-pointer">
+                                <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
                                   ONE-VANILLA VISA
                                 </li>
                               </ul>
@@ -301,7 +286,7 @@ export const Trading = () => {
                     <img src={master} alt="" />
                   </span>
                 </p>
-              </form>
+              </fieldset>
             </div>
             <div
               className={`px-6 py-4 ${
@@ -339,7 +324,7 @@ export const Trading = () => {
               </form>
             </div>
           </div>
-        </div>
+        </form>
       </section>
     </>
   );
