@@ -6,10 +6,27 @@ import {
   IoPersonCircleOutline,
   //   IoNotificationsSharp,
 } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Header() {
   const [menu, setMenu] = useState(false);
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+
+  const handleToggle = (e) => {
+    if (e.target.checked) {
+      setTheme("dark");
+    } else {
+      setTheme("Light");
+    }
+  };
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [theme]);
 
   return (
     <>
@@ -28,7 +45,12 @@ function Header() {
               <Link to={"#"}>Prices</Link>
               <Link to={"#"}>FAQs</Link>
             </ul>
-            <input type="checkbox" className="toggle toggle-lg" />
+            <input
+              type="checkbox"
+              onClick={handleToggle}
+              checked={theme === "light" ? false : true}
+              className="toggle toggle-lg"
+            />
             <div className="flex-none gap-2">
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">

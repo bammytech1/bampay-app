@@ -29,17 +29,17 @@ export default {
         },
         dark: {
           ...require("daisyui/src/theming/themes")["[data-theme=light]"],
-          primary: "#39a798",
+          "base-300": "#828282",
 
           secondary: "#FFD708",
 
           accent: "#828282",
 
-          neutral: "#f2f2f2",
+          neutral: "#4f4f4f",
 
-          "base-200": "#f2f2f2",
+          "base-200": "#4f4f4f",
           "base-100": "#4f4f4f",
-          "base-300": "#000000",
+          primary: "#000000",
 
           info: "#3abff8",
 
@@ -51,7 +51,7 @@ export default {
         },
       },
     ], // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
-    darkTheme: ["dark"], // name of one of the included themes for dark mode
+    darkTheme: ["light"], // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes
