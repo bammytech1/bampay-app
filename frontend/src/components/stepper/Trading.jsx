@@ -88,7 +88,6 @@ export const Trading = () => {
             </span>
             <p className="text-xs">Finish</p>
           </div>
-          <div className="z-0 absolute top-[30%] left-0 w-full max-w-sm h-1 bg-base-300"></div>
         </div>
         <div className="z-0 absolute top-[30%] left-0 w-full max-w-sm h-1 bg-base-300"></div>
       </div>
@@ -96,11 +95,11 @@ export const Trading = () => {
         <form
           action=""
           onChange={handleOnChange}
-          className="w-full   flex flex-col items-center"
+          className="w-full min-w-[320px]  flex flex-col items-center"
           aria-multiselectable="false"
         >
-          <Stepper currentStep={currentStep} steps={steps} />
-          {/* <StartTrade /> */}
+          {/* <Stepper currentStep={currentStep} steps={steps} /> */}
+          <StartTrade />
           {/* <GetVerified /> */}
           {/* <GiftCodeDetails /> */}
           {/* <UploadImages /> */}
