@@ -28,6 +28,7 @@
     "react-router-dom": "^6.15.0",
     "react-router-hash-link": "^2.4.3",
     "sass": "^1.65.1",
+    "theme-change": "^2.5.0",
     "tw-elements-react": "^1.0.0-alpha1"
   },
   "devDependencies": {

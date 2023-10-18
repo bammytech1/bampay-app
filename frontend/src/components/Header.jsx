@@ -6,6 +6,7 @@ import {
   IoPersonCircleOutline,
   //   IoNotificationsSharp,
 } from "react-icons/io5";
+import { themeChange } from "theme-change";
 import { useEffect, useState } from "react";
 
 function Header() {
@@ -22,6 +23,11 @@ function Header() {
       setTheme("Light");
     }
   };
+
+  useEffect(() => {
+    themeChange(false);
+    // 👆 false parameter is required for react project
+  }, []);
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
@@ -45,11 +51,18 @@ function Header() {
               <Link to={"#"}>Prices</Link>
               <Link to={"#"}>FAQs</Link>
             </ul>
+            {/* <button
+              className="toggle toggle-lg"
+              data-toggle-theme="dark,light"
+              data-act-class="ACTIVECLASS"
+            ></button> */}
             <input
               type="checkbox"
-              onClick={handleToggle}
-              checked={theme === "light" ? false : true}
+              // checked
+              data-toggle-theme="dark,light"
+              data-act-class="ACTIVECLASS"
               className="toggle toggle-lg"
+              onClick={handleToggle}
             />
             <div className="flex-none gap-2">
               <div className="dropdown dropdown-end">
