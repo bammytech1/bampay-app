@@ -20,7 +20,7 @@ function Trade() {
           <h2 className="text-center text-xl font-bold text-neutral md:text-5xl">
             Exchange
           </h2>
-          <div className="place-content-center gap-1  grid md:grid-cols-2 mt-6">
+          <div className="place-items-center  gap-1 space  grid md:grid-cols-2 mt-6">
             <motion.picture
               initial={{ y: "2rem", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -32,7 +32,7 @@ function Trade() {
             >
               <img className="" src={tradeImage} alt="wallet icon" />
             </motion.picture>
-            <div className="flex flex-col items-center">
+            <div className=" flex max-w-sm flex-col items-center justify-center">
               <Trading />
             </div>
           </div>

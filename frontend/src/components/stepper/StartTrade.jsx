@@ -149,13 +149,13 @@ function StartTrade() {
               <div>
                 <div className="relative flex flex-col gap-2">
                   <div className=" w-full flex gap-2 p-2 bg-base-100 border-2 border-base-300  rounded-3xl">
-                    <div className="ml-2 text-base-200">
+                    <div className="ml-2 text-accent">
                       <label htmlFor="">spend</label>
                       <input
                         type="text"
                         min={"3"}
                         placeholder="0.00"
-                        className="bg-transparent text-base-200 outline-none   w-full "
+                        className="bg-transparent text-primary outline-none   w-full "
                       />
                     </div>
 
@@ -178,11 +178,11 @@ function StartTrade() {
                     </button>
                   </div>
                   {check && (
-                    <div className=" w-full top-[70px] absolute left-1/2 -translate-x-1/2 flex flex-col p-5 gap-4 bg-base-200 rounded-3xl">
+                    <div className=" w-full top-[70px] absolute left-1/2 -translate-x-1/2 flex flex-col p-5 gap-4 bg-primary rounded-3xl">
                       <p className="flex justify-between items-center text-base text-neutral">
                         Select Currency{" "}
                         <span>
-                          <select className="select select-accent bg-base-200 rounded-3xl  text-neutral">
+                          <select className="select select-accent bg-base-100 rounded-3xl  text-base-300">
                             <option selected>USD</option>
                             <option>h3</option>
                             <option>AUD</option>
@@ -209,7 +209,7 @@ function StartTrade() {
                           <button
                             onClick={() => handlePrepaidClick()}
                             type="button"
-                            className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral focus:text-primary"
+                            className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral focus:text-accent"
                           >
                             <IoCardOutline size={"20px"} />
                             Prepaid GiftCard
@@ -221,24 +221,24 @@ function StartTrade() {
                         </div>
                         <span className="w-1 h-auto bg-base-content "></span>
                         {prepaidCheck && (
-                          <div className="Curency-types">
+                          <div className="px-2 h-[120px] overflow-y-auto">
                             <ul className="flex flex-col items-start text-sm font-bold text-neutral gap-2">
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
+                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
                                 VANILLA MASTER
                               </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
+                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
                                 ONE-VANILLA MASTER
                               </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
+                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
                                 ONE-VANILLA VISA
                               </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
+                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
                                 VANILLA MASTER
                               </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
+                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
                                 ONE-VANILLA MASTER
                               </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-primary hover:border-primary">
+                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
                                 ONE-VANILLA VISA
                               </li>
                             </ul>
@@ -250,14 +250,16 @@ function StartTrade() {
                   <span className="flex text-neutral items-center justify-center absolute w-10 h-10 rounded-full bg-primary left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 ">
                     <IoRepeat size={"30px"} />
                   </span>
-                  <div className="w-full flex justify-between p-2 bg-base-100 border-2 border-base-300 text-base-200  rounded-3xl">
+                  <div className="w-full flex justify-between p-2 bg-base-100 border-2 border-base-300 text-accent  rounded-3xl">
                     <div className="ml-2">
                       <label htmlFor="">receive</label>
                       <input
+                        required
                         type="text"
                         min={"3"}
+                        max={"10"}
                         placeholder="0.00"
-                        className="bg-transparent text-base-200 outline-none w-full max-w-xs"
+                        className="bg-transparent text-primary outline-none w-full max-w-xs pr-2"
                       />
                     </div>
                     <button
