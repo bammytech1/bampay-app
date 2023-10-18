@@ -95,11 +95,11 @@ export const Trading = () => {
         <form
           action=""
           onChange={handleOnChange}
-          className="w-full   flex flex-col items-center"
+          className="w-full min-w-[320px]  flex flex-col items-center"
           aria-multiselectable="false"
         >
-          <Stepper currentStep={currentStep} steps={steps} />
-          {/* <StartTrade /> */}
+          {/* <Stepper currentStep={currentStep} steps={steps} /> */}
+          <StartTrade />
           {/* <GetVerified /> */}
           {/* <GiftCodeDetails /> */}
           {/* <UploadImages /> */}
