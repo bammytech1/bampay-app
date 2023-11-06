@@ -19,7 +19,6 @@ function StartTrade() {
     e.preventDefault();
     const data = new FormData(e.target);
     dispatch(setFormData(Object.fromEntries(data.entries())));
-
     dispatch(nextStep());
   };
 
