@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import tradeTypes from "../../data/tradeTypes";
 import {
+  IoArrowBackCircleSharp,
   IoCardOutline,
   IoChevronDownOutline,
   IoChevronUpOutline,
@@ -7,19 +9,32 @@ import {
 } from "react-icons/io5";
 import visa from "../../assets/Visa_icon.png";
 import master from "../../assets/Mastercard-icon.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
 
 function StartTrade() {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    dispatch(setFormData(Object.fromEntries(data.entries())));
+
+    dispatch(nextStep());
+  };
+
+  const [inputValue, setInputValue] = useState([]);
+
+  const spendInput = Number(inputValue) || [];
+
+  const [receivedValue, setReceivedValue] = useState([]);
+
   const [check, setCheck] = useState(false);
   const [prepaidCheck, setPrepaidCheck] = useState(false);
   const [tabSelected, setTabSelected] = useState({
     currentTab: 1,
-    noTabs: 3,
+    noTabs: 2,
   });
-
-  // const [inputValues, setInputValues] = useState({
-  //   currency: "",
-  //   paymentType: "",
-  // });
 
   function handlePrepaidClick() {
     if (setPrepaidCheck) {
@@ -28,11 +43,6 @@ function StartTrade() {
       false;
     }
   }
-
-  // const handleOnChange = useCallback((event) => {
-  //   const { name, value } = event.target;
-  //   setInputValues({ ...inputValues, [name]: value });
-  // });
 
   const wrapperRef = useRef(null);
 
@@ -82,9 +92,13 @@ function StartTrade() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  const [currency, setCurrency] = useState("USD");
+  const [tradeType, setTradeType] = useState("Vanilla");
+
   return (
     <>
-      <section className="px-6 flex flex-col items-center">
+      <form onSubmit={handleSubmit} className="px-6 flex flex-col items-center">
         <ul className="flex items-center gap-2" role="tablist" ref={wrapperRef}>
           <li className="" role="presentation">
             <button
@@ -142,10 +156,7 @@ function StartTrade() {
               <p className="font-thin">Estimated price</p>
               <span className="font-semibold">1BTC - 21.443USD</span>
             </div>
-            <fieldset
-              action=""
-              className="w-full  flex flex-col items-center gap-4"
-            >
+            <div className="w-full  flex flex-col items-center gap-4">
               <div>
                 <div className="relative flex flex-col gap-2">
                   <div className=" w-full flex gap-2 p-2 bg-base-100 border-2 border-base-300  rounded-3xl">
@@ -153,8 +164,13 @@ function StartTrade() {
                       <label htmlFor="">spend</label>
                       <input
                         type="text"
-                        min={"3"}
+                        id="spend"
+                        name="spend"
+                        min="3"
                         placeholder="0.00"
+                        required
+                        value={spendInput}
+                        onChange={(e) => setInputValue(e.target.value)}
                         className="bg-transparent text-primary outline-none   w-full "
                       />
                     </div>
@@ -165,8 +181,10 @@ function StartTrade() {
                       className="btn btn-accent bg-primary w-[130px] rounded-3xl  border-none  text-neutral "
                     >
                       <div className="flex flex-col items-start m-auto">
-                        <h3 className="text-base font-bold ">USD</h3>
-                        <p className="text-xs font-normal ">Vanilla visa</p>
+                        <span className="text-base font-bold ">{currency}</span>
+                        <span className="text-xs font-normal ">
+                          {tradeType}
+                        </span>
                       </div>
                       <span>
                         {check ? (
@@ -179,15 +197,27 @@ function StartTrade() {
                   </div>
                   {check && (
                     <div className=" w-full top-[70px] absolute left-1/2 -translate-x-1/2 flex flex-col p-5 gap-4 bg-primary rounded-3xl">
-                      <p className="flex justify-between items-center text-base text-neutral">
+                      <p className="flex justify-between items-center text-sm text-neutral">
                         Select Currency{" "}
                         <span>
-                          <select className="select select-accent bg-base-100 rounded-3xl  text-base-300">
-                            <option selected>USD</option>
-                            <option>h3</option>
-                            <option>AUD</option>
-                            <option>GBP</option>
-                            <option>EUR</option>
+                          <select
+                            name="currency"
+                            id="currency"
+                            onChange={(e) => {
+                              const selectedCurrency = e.target.value;
+                              setCurrency(selectedCurrency);
+                            }}
+                            value={currency}
+                            required
+                            className="select select-accent bg-base-100 rounded-3xl  text-base-300"
+                          >
+                            <option value="usd" selected>
+                              USD
+                            </option>
+
+                            <option value="aud">AUD</option>
+                            <option value="gbp">GBP</option>
+                            <option value="eur">EUR</option>
                           </select>
                         </span>
                       </p>
@@ -197,10 +227,10 @@ function StartTrade() {
                         id="search"
                         className=" input input-bordered join-item "
                       />
-                      <p className="flex justify-between items-center text-base text-neutral">
+                      <p className="flex justify-between items-center text-sm text-neutral">
                         Select payment type
                       </p>
-                      <div className="flex justify-between">
+                      {/* <div className="flex justify-between">
                         <div className="flex flex-col">
                           <div className="flex gap-2 text-neutral p-1 font-bold hover:border-b-2 border-neutral ">
                             <IoCardOutline size={"20px"} />
@@ -221,29 +251,36 @@ function StartTrade() {
                         </div>
                         <span className="w-1 h-auto bg-base-content "></span>
                         {prepaidCheck && (
-                          <div className="px-2 h-[120px] overflow-y-auto">
-                            <ul className="flex flex-col items-start text-sm font-bold text-neutral gap-2">
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
-                                VANILLA MASTER
-                              </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
-                                ONE-VANILLA MASTER
-                              </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
-                                ONE-VANILLA VISA
-                              </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
-                                VANILLA MASTER
-                              </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
-                                ONE-VANILLA MASTER
-                              </li>
-                              <li className="cursor-pointer hover:border-b-2 border-neutral hover:text-accent hover:border-primary">
-                                ONE-VANILLA VISA
-                              </li>
-                            </ul>
-                          </div>
+                          
                         )}
+                      </div> */}
+                      <div className="px-2 h-[120px] overflow-y-auto">
+                        <div className="option flex flex-col items-start gap-2 ">
+                          {tradeTypes.map((trades) => {
+                            return (
+                              <div
+                                key={trades.id}
+                                className="relative bg-base-300 text-base-100 flex items-center gap-2 py-2 px-4 border rounded-3xl w-[90%]"
+                              >
+                                <IoCardOutline size={"20px"} />
+                                <input
+                                  onChange={(e) => {
+                                    const selectedTrade = e.target.value;
+                                    setTradeType(selectedTrade);
+                                  }}
+                                  type="radio"
+                                  name="categories"
+                                  id="categories"
+                                  value={trades.value}
+                                  className="w-full absolute opacity-0 "
+                                />
+                                <label htmlFor="vanilla" className=" font-bold">
+                                  {trades.label}
+                                </label>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -254,11 +291,14 @@ function StartTrade() {
                     <div className="ml-2">
                       <label htmlFor="">receive</label>
                       <input
-                        required
                         type="text"
-                        min={"3"}
-                        max={"10"}
+                        min="3"
+                        max="10"
+                        id="receive"
+                        name="receive"
                         placeholder="0.00"
+                        value={receivedValue}
+                        onChange={(e) => setReceivedValue(e.target.value)}
                         className="bg-transparent text-primary outline-none w-full max-w-xs pr-2"
                       />
                     </div>
@@ -283,14 +323,21 @@ function StartTrade() {
                 </div>
               </div>
 
-              {/* <p className="flex gap-2 text-neutral items-center justify-center ">
-              we accept{" "}
-              <span className="flex gap-2 ">
-                <img src={visa} alt="" />
-                <img src={master} alt="" />
-              </span>
-            </p> */}
-            </fieldset>
+              <button
+                type="submit"
+                className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
+              >
+                Proceed
+              </button>
+
+              <p className="flex gap-2 text-base-300 items-center justify-center ">
+                we accept{" "}
+                <span className="flex gap-2 ">
+                  <img src={visa} alt="" />
+                  <img src={master} alt="" />
+                </span>
+              </p>
+            </div>
           </div>
           <div
             className={`px-6 py-4 ${
@@ -302,7 +349,7 @@ function StartTrade() {
             aria-labelledby="tab-label-2e"
             tabIndex="-1"
           >
-            <fieldset action="">
+            <div>
               <div className="flex gap-2 p-2 bg-neutral border">
                 <div>
                   <label htmlFor="">You spend</label>
@@ -325,10 +372,10 @@ function StartTrade() {
               <span>
                 <IoRepeat />
               </span>
-            </fieldset>
+            </div>
           </div>
         </div>
-      </section>
+      </form>
     </>
   );
 }

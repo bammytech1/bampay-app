@@ -17,7 +17,7 @@ export default {
 
           "base-100": "#f2f2f2",
           "base-200": "#4f4f4f",
-          "base-300": "#000000",
+          "base-300": "#222222",
 
           info: "#3abff8",
 
@@ -39,7 +39,7 @@ export default {
 
           "base-200": "#4f4f4f",
           "base-100": "#4f4f4f",
-          primary: "#000000",
+          primary: "#222222",
 
           info: "#3abff8",
 
@@ -58,31 +58,6 @@ export default {
     rtl: false, // rotate style direction from left-to-right to right-to-left. You also need to add dir="rtl" to your html tag and install `tailwindcss-flip` plugin for Tailwind CSS.
     prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
-    // themes: [
-    //   {
-    //     mytheme: {
-    //       primary: "#39a798",
-
-    //       secondary: "#FFD708",
-
-    //       accent: "#828282",
-
-    //       neutral: "#f2f2f2",
-
-    //       "base-100": "#f2f2f2",
-    //       "base-200": "#4f4f4f",
-    //       "base-300": "#000000",
-
-    //       info: "#3abff8",
-
-    //       success: "#39a799",
-
-    //       warning: "#fbbd23",
-
-    //       error: "#f87272",
-    //     },
-    //   },
-    // ],
   },
   plugins: [require("daisyui")],
 };

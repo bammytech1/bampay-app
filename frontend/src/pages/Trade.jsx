@@ -3,20 +3,11 @@ import tradeImage from "../assets/digitalcurrency.svg";
 import MinFooter from "../components/MinFooter";
 import { Trading } from "../components/stepper/Trading";
 
-import { Link } from "react-router-dom";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
-
 function Trade() {
   return (
     <>
       <section className="mb-6  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-32  ">
         <div className="relative container flex flex-col gap-6   w-full max-w-7xl md:py-8 ">
-          <Link
-            to={""}
-            className="  text-neutral absolute top-0 left-2 md:top-10 md:left-10"
-          >
-            <IoArrowBackCircleSharp size={"40px"} />
-          </Link>
           <h2 className="text-center text-xl font-bold text-neutral md:text-5xl">
             Exchange
           </h2>

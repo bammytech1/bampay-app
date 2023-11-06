@@ -22,7 +22,7 @@ function SuccessPage() {
             USDT Address: <span>u23mdec78q014cu17r1rz0813rtu10</span>
           </li>
         </ul>
-        <fieldset className="flex max-w-sm flex-col items-start bg-base-100 rounded-3xl w-full  p-4">
+        <div className="flex max-w-sm flex-col items-start bg-base-100 rounded-3xl w-full  p-4">
           <div className="flex max-w-sm flex-col items-center gap-4 rounded-3xl w-full p-4">
             <h3 className="text-xl font-bold">Trade Successful!</h3>
             <p className="text-center">
@@ -43,7 +43,7 @@ function SuccessPage() {
             </p>
           </div>
           {/* <div>image will preview here</div> */}
-        </fieldset>
+        </div>
       </section>
     </>
   );

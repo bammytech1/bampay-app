@@ -11,7 +11,7 @@
 }
 
 .phone-container {
-  @apply w-full bg-neutral  mt-2 px-3 py-2 border border-base-300  rounded-3xl;
+  @apply w-full bg-neutral  mt-2 px-3 py-2 border border-primary  rounded-3xl;
 }
 
 .phone-container input {

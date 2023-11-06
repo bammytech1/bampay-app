@@ -1,21 +1,14 @@
-import { useEffect } from "react";
+import { BrowserRouter as Routes, Route } from "react-router-dom";
+import StartTrade from "./StartTrade";
+import GetVerified from "./GetVerified";
+import GiftCodeDetails from "./GiftCodeDetails";
 
-const Stepper = ({ steps, currentStep }) => {
-  useEffect(() => {
-    //create object
-    const stepsState = steps.map((step, index) =>
-      Object.assign(
-        {},
-        {
-          description: step,
-          completed: false,
-          highlighted: index === 0 ? true : false,
-          selected: index === 0 ? true : false,
-        }
-      )
-    );
-  }, [steps, currentStep]);
-  return <div>S</div>;
+const Stepper = () => {
+  <Routes>
+    <Route exact path="/startTrade" component={<StartTrade />} />
+    <Route path="/getVerified" component={<GetVerified />} />
+    <Route path="/giftCardCode" component={<GiftCodeDetails />} />
+  </Routes>;
 };
 
 export default Stepper;

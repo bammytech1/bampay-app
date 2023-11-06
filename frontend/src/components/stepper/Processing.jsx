@@ -21,7 +21,7 @@ function Processing() {
             USDT Address: <span>u23mdec78q014cu17r1rz0813rtu10</span>
           </li>
         </ul>
-        <fieldset className="flex max-w-sm flex-col items-start bg-base-100 rounded-3xl w-full  p-4">
+        <div className="flex max-w-sm flex-col items-start bg-base-100 rounded-3xl w-full  p-4">
           <div className="flex max-w-sm flex-col items-center gap-4 rounded-3xl w-full p-4">
             <p className="text-center">
               Please wait while we process your card{" "}
@@ -56,7 +56,7 @@ function Processing() {
             <span className="text-primary">here</span>
           </p>
           {/* <div>image will preview here</div> */}
-        </fieldset>
+        </div>
       </section>
     </>
   );
