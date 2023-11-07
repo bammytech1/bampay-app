@@ -20,6 +20,11 @@ function GiftCodeDetails() {
   };
   const getData = useSelector((state) => state.step);
   const [startDate, setStartDate] = useState();
+  const handleChangeRaw = (value) => {
+    if (value === "tomorrow") {
+      setStartDate(addDays(new Date(), 1));
+    }
+  };
   return (
     <>
       <form
@@ -67,44 +72,13 @@ function GiftCodeDetails() {
             <div className="flex w-full justify-between  gap-6 ">
               <div className="group w-1/2 relative">
                 <DatePicker
-                  renderCustomHeader={({
-                    date,
-                    changeYear,
-                    changeMonth,
-                    decreaseMonth,
-                    increaseMonth,
-                    prevMonthButtonDisabled,
-                    nextMonthButtonDisabled,
-                  }) => (
-                    <div
-                      style={{
-                        margin: 10,
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <button
-                        onClick={decreaseMonth}
-                        disabled={prevMonthButtonDisabled}
-                      >
-                        {"<"}
-                      </button>
-                      <span>{2023}</span>
-                      <button
-                        onClick={increaseMonth}
-                        disabled={nextMonthButtonDisabled}
-                      >
-                        {">"}
-                      </button>
-                    </div>
-                  )}
                   name="cardExp"
                   id="cardExp"
                   selected={startDate}
-                  showPopperArrow={true}
                   onChange={(date) => setStartDate(date)}
-                  dateFormat="MM/yyyy"
+                  dateFormat="MM/yy"
                   showMonthYearPicker
+                  placeholderText="MM/YY"
                   className="peer w-full h-14  rounded-3xl bg-base-100  text-sm px-6"
                 />
                 {/* <input
@@ -116,8 +90,8 @@ function GiftCodeDetails() {
                   className="peer w-full h-14  rounded-3xl bg-base-100  text-sm "
                 /> */}
                 <label
-                  htmlFor="date"
-                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
+                  htmlFor="cardExp"
+                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base text-transparent transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
                 >
                   MM/YY
                 </label>

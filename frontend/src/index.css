@@ -22,9 +22,9 @@
 }
 
 .react-datepicker {
-  @apply !z-[1000] !bg-base-100 p-2 block;
+  @apply !z-[1000] hidden !bg-base-100 p-2 block;
 }
 
 .react-datepicker__month-wrapper {
-  @apply !flex-wrap flex gap-3 items-center justify-center cursor-pointer;
+  @apply !flex-wrap flex gap-3 items-center justify-center cursor-pointer hidden;
 }
