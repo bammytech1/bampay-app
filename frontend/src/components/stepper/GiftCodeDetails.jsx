@@ -2,6 +2,8 @@ import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
 import tradeTypes from "../../data/tradeTypes";
+import DatePicker from "react-datepicker";
+import { useState } from "react";
 
 function GiftCodeDetails() {
   const newTrade = { ...tradeTypes };
@@ -16,8 +18,8 @@ function GiftCodeDetails() {
   const handlePrev = () => {
     dispatch(prevStep());
   };
-  const toSpend = useSelector((state) => state.step);
-  const toReceive = useSelector((state) => state.step);
+  const getData = useSelector((state) => state.step);
+  const [startDate, setStartDate] = useState();
   return (
     <>
       <form
@@ -32,19 +34,19 @@ function GiftCodeDetails() {
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
-            Vanilla Visa : <span>${toSpend.formData.spend}</span>
+            Vanilla Visa : <span>${getData.formData.spend}</span>
           </li>
           <li>
-            You Receive: <span>${toReceive.formData.spend * 2}</span>
+            You Receive: <span>${getData.formData.spend * 2}</span>
           </li>
         </ul>
-        <div className="flex max-w-sm flex-col items-start gap-8 bg-base-100 rounded-3xl w-full  p-4">
-          <div className="flex max-w-sm flex-col items-start gap-8 bg-primary rounded-3xl w-full p-4">
+        <div className="flex max-w-sm flex-col items-center gap-6 bg-base-100 rounded-3xl w-full  p-4">
+          <div className="flex max-w-sm flex-col items-start gap-6 bg-primary rounded-3xl w-full p-4">
             <div className="flex  justify-between w-full text-neutral font-bold text-2xl ">
               <p>Vanilla Visa</p>
               <p className="text-2xl text-secondary">
                 {" "}
-                ${toSpend.formData.spend}{" "}
+                ${getData.formData.spend}{" "}
               </p>
             </div>
             <div className="group w-full relative ">
@@ -57,30 +59,72 @@ function GiftCodeDetails() {
               />
               <label
                 htmlFor="cardNumber"
-                className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base-200 transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-base group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-base peer-valid:text-white"
+                className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
               >
                 Card number
               </label>
             </div>
             <div className="flex w-full justify-between  gap-6 ">
               <div className="group w-1/2 relative">
-                <input
-                  type="number"
+                <DatePicker
+                  renderCustomHeader={({
+                    date,
+                    changeYear,
+                    changeMonth,
+                    decreaseMonth,
+                    increaseMonth,
+                    prevMonthButtonDisabled,
+                    nextMonthButtonDisabled,
+                  }) => (
+                    <div
+                      style={{
+                        margin: 10,
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <button
+                        onClick={decreaseMonth}
+                        disabled={prevMonthButtonDisabled}
+                      >
+                        {"<"}
+                      </button>
+                      <span>{2023}</span>
+                      <button
+                        onClick={increaseMonth}
+                        disabled={nextMonthButtonDisabled}
+                      >
+                        {">"}
+                      </button>
+                    </div>
+                  )}
+                  name="cardExp"
+                  id="cardExp"
+                  selected={startDate}
+                  showPopperArrow={true}
+                  onChange={(date) => setStartDate(date)}
+                  dateFormat="MM/yyyy"
+                  showMonthYearPicker
+                  className="peer w-full h-14  rounded-3xl bg-base-100  text-sm px-6"
+                />
+                {/* <input
+                  type="date"
                   name="cardDate"
                   id="date"
+                  max={3}
                   required
                   className="peer w-full h-14  rounded-3xl bg-base-100  text-sm "
-                />
+                /> */}
                 <label
                   htmlFor="date"
-                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-base group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-base peer-valid:text-white"
+                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
                 >
                   MM/YY
                 </label>
               </div>
               <div className="group w-1/3 relative">
                 <input
-                  type="number"
+                  type="text"
                   name="CardCvv"
                   id="cvv"
                   required
@@ -88,7 +132,7 @@ function GiftCodeDetails() {
                 />
                 <label
                   htmlFor="cvv"
-                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-base group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-base peer-valid:text-white"
+                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
                 >
                   CVV
                 </label>
@@ -99,13 +143,13 @@ function GiftCodeDetails() {
             <input
               type="text"
               name="usdt"
-              id="ustd"
+              id="usdt"
               required
-              className="peer h-14 w-full rounded-3xl bg-base-100 px-4 text-sm border-base-200 border-2"
+              className="peer h-14 w-full rounded-3xl bg-base-100 px-4 text-sm border-base-300 border-2"
             />
             <label
               htmlFor="usdt"
-              className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base-200 transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-base group-focus-within:text-base-200 peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-base peer-valid:text-white"
+              className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-base-300 peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-base-300"
             >
               USDT Address
             </label>

@@ -1,6 +1,6 @@
-import { IoCopy } from "react-icons/io5";
+import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, nextStep } from "../../redux/stepperSlice";
+import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
 
 function UploadImages() {
   const dispatch = useDispatch();
@@ -11,6 +11,13 @@ function UploadImages() {
     dispatch(setFormData(Object.fromEntries(data.entries())));
     dispatch(nextStep());
   };
+
+  const handlePrev = () => {
+    dispatch(prevStep());
+  };
+
+  const getData = useSelector((state) => state.step);
+
   return (
     <>
       <form
@@ -25,13 +32,13 @@ function UploadImages() {
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
-            Vanilla Visa : <span>$500</span>
+            Vanilla Visa : <span>${getData.formData.spend}</span>
           </li>
           <li>
-            You Receive: <span>$450</span>
+            You Receive: <span>${getData.formData.receive}</span>
           </li>
           <li>
-            USDT Address: <span>u23mdec78q014cu17r1rz0813rtu10</span>
+            USDT Address: <span>{getData.formData.usdt}</span>
           </li>
         </ul>
         <fieldset className="flex max-w-sm flex-col items-start bg-base-100 rounded-3xl w-full  p-4">
@@ -43,6 +50,7 @@ function UploadImages() {
                   <span className="label-text">Card Front </span>
                 </label>
                 <input
+                  name="cardFront"
                   type="file"
                   className="file-input file-input-bordered file-input-success w-full max-w-xs"
                 />
@@ -52,6 +60,7 @@ function UploadImages() {
                   <span className="label-text">Card Back </span>
                 </label>
                 <input
+                  name="cardBack"
                   type="file"
                   className="file-input file-input-bordered file-input-success w-full max-w-xs"
                 />
@@ -61,6 +70,7 @@ function UploadImages() {
                   <span className="label-text">Receipt </span>
                 </label>
                 <input
+                  name="Receipt"
                   type="file"
                   className="file-input file-input-bordered file-input-success w-full max-w-xs"
                 />
@@ -86,6 +96,13 @@ function UploadImages() {
           className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
         >
           Submit Images
+        </button>
+        <button
+          type="button"
+          onClick={handlePrev}
+          className="  text-neutral absolute top-0 left-2 md:top-10 md:left-10"
+        >
+          <IoArrowBackCircleSharp size={"40px"} />
         </button>
       </form>
     </>

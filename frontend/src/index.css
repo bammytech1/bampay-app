@@ -20,3 +20,11 @@
 .react-international-phone-country-selector-button {
   @apply !border-0 !outline-none !bg-transparent;
 }
+
+.react-datepicker {
+  @apply !z-[1000] !bg-base-100 p-2 block;
+}
+
+.react-datepicker__month-wrapper {
+  @apply !flex-wrap flex gap-3 items-center justify-center cursor-pointer;
+}
