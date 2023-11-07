@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import tradeTypes from "../../data/tradeTypes";
 import {
-  IoArrowBackCircleSharp,
   IoCardOutline,
   IoChevronDownOutline,
   IoChevronUpOutline,
@@ -10,38 +9,42 @@ import {
 import visa from "../../assets/Visa_icon.png";
 import master from "../../assets/Mastercard-icon.png";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
+import { setFormData, nextStep } from "../../redux/stepperSlice";
+// import { useForm } from "react-hook-form";
 
 function StartTrade() {
+  // const toReceive = useSelector((state) => state.step);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     dispatch(setFormData(Object.fromEntries(data.entries())));
+
     dispatch(nextStep());
   };
 
   const [inputValue, setInputValue] = useState([]);
+  console.log(inputValue);
 
   const spendInput = Number(inputValue) || [];
 
-  const [receivedValue, setReceivedValue] = useState([]);
+  // const [receivedValue, setReceivedValue] = useState();
 
   const [check, setCheck] = useState(false);
-  const [prepaidCheck, setPrepaidCheck] = useState(false);
+  // const [prepaidCheck, setPrepaidCheck] = useState(false);
   const [tabSelected, setTabSelected] = useState({
     currentTab: 1,
     noTabs: 2,
   });
 
-  function handlePrepaidClick() {
-    if (setPrepaidCheck) {
-      return setPrepaidCheck(!prepaidCheck);
-    } else {
-      false;
-    }
-  }
+  // function handlePrepaidClick() {
+  //   if (setPrepaidCheck) {
+  //     return setPrepaidCheck(!prepaidCheck);
+  //   } else {
+  //     false;
+  //   }
+  // }
 
   const wrapperRef = useRef(null);
 
@@ -296,8 +299,6 @@ function StartTrade() {
                         id="receive"
                         name="receive"
                         placeholder="0.00"
-                        value={receivedValue}
-                        onChange={(e) => setReceivedValue(e.target.value)}
                         className="bg-transparent text-primary outline-none w-full max-w-xs pr-2"
                       />
                     </div>

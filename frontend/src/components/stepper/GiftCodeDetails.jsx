@@ -1,8 +1,10 @@
 import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
+import tradeTypes from "../../data/tradeTypes";
 
 function GiftCodeDetails() {
+  const newTrade = { ...tradeTypes };
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -14,6 +16,8 @@ function GiftCodeDetails() {
   const handlePrev = () => {
     dispatch(prevStep());
   };
+  const toSpend = useSelector((state) => state.step);
+  const toReceive = useSelector((state) => state.step);
   return (
     <>
       <form
@@ -28,17 +32,20 @@ function GiftCodeDetails() {
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
-            Vanilla Visa : <span>${JSON.stringify(FormData, null, 2)}</span>
+            Vanilla Visa : <span>${toSpend.formData.spend}</span>
           </li>
           <li>
-            You Receive: <span>$450</span>
+            You Receive: <span>${toReceive.formData.spend * 2}</span>
           </li>
         </ul>
         <div className="flex max-w-sm flex-col items-start gap-8 bg-base-100 rounded-3xl w-full  p-4">
           <div className="flex max-w-sm flex-col items-start gap-8 bg-primary rounded-3xl w-full p-4">
             <div className="flex  justify-between w-full text-neutral font-bold text-2xl ">
               <p>Vanilla Visa</p>
-              <p> ${JSON.stringify(FormData.spend)} </p>
+              <p className="text-2xl text-secondary">
+                {" "}
+                ${toSpend.formData.spend}{" "}
+              </p>
             </div>
             <div className="group w-full relative ">
               <input
