@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  step: 1, // Current step of the form
+  step: 1,
+  totalSteps: 6, // Current step of the form
   formData: {}, // Data for the form
 };
 
@@ -13,10 +14,14 @@ const stepperSlice = createSlice({
       state.formData = { ...state.formData, ...action.payload };
     },
     nextStep: (state) => {
-      state.step += 1;
+      if (state.step < state.totalSteps) {
+        state.step += 1;
+      }
     },
     prevStep: (state) => {
-      state.step -= 1;
+      if (state.step > 1) {
+        state.step -= 1;
+      }
     },
   },
 });

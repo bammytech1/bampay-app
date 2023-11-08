@@ -27,7 +27,8 @@ export const Trading = () => {
   // const dispatch = useDispatch();
   // dispatch(prevStep());
   // const { steps, totalSteps } = useSelector((state) => state.step);
-  const { step } = useSelector((state) => state.step);
+  const { step, totalSteps } = useSelector((state) => state.step);
+  // const [ steps, setSteps] = useState(1)
 
   const renderStep = () => {
     switch (step) {
@@ -57,7 +58,9 @@ export const Trading = () => {
             <div className="flex flex-col items-center gap-2 ">
               <span
                 className={`border border-base-300 p-2 rounded-full  ${
-                  step >= 1 ? "bg-base-100" : "bg-primary"
+                  step >= 1
+                    ? "bg-base-100 border-base-100"
+                    : "bg-primary border-base-300"
                 }`}
               >
                 <IoDocumentTextOutline size={"30px"} />
@@ -73,7 +76,9 @@ export const Trading = () => {
             <div className="flex flex-col items-center gap-2">
               <span
                 className={`border border-base-300 p-2 rounded-full  ${
-                  step >= 2 ? "bg-base-100" : "bg-primary"
+                  step >= 2
+                    ? "bg-base-100 border-base-100"
+                    : "bg-primary border-base-300"
                 }`}
               >
                 <IoMailOpenOutline size={"30px"} />
@@ -89,7 +94,9 @@ export const Trading = () => {
             <div className="flex flex-col items-center gap-2">
               <span
                 className={`border border-base-300 p-2 rounded-full  ${
-                  step >= 3 ? "bg-base-100" : "bg-primary"
+                  step >= 3
+                    ? "bg-base-100 border-base-100"
+                    : "bg-primary border-base-300"
                 }`}
               >
                 <IoCardOutline size={"30px"} />
@@ -105,7 +112,9 @@ export const Trading = () => {
             <div className="flex flex-col items-center gap-2">
               <span
                 className={`border border-base-300 p-2 rounded-full  ${
-                  step >= 4 ? "bg-base-100" : "bg-primary"
+                  step >= 4
+                    ? "bg-base-100 border-base-100"
+                    : "bg-primary border-base-300"
                 }`}
               >
                 <IoCloudUploadOutline size={"30px"} />
@@ -121,7 +130,9 @@ export const Trading = () => {
             <div className="flex flex-col items-center gap-2">
               <span
                 className={`border border-base-300 p-2 rounded-full  ${
-                  step >= 5 ? "bg-base-100" : "bg-primary"
+                  step >= 5
+                    ? "bg-base-100 border-base-100"
+                    : "bg-primary border-base-300"
                 }`}
               >
                 <IoStopwatchOutline size={"30px"} />
@@ -151,8 +162,32 @@ export const Trading = () => {
               </p>
             </div>
           </div>
-          {/* <input type="progress" /> */}
-          <div className="z-0 absolute top-[30%] left-0 w-full max-w-sm h-1 bg-base-300"></div>
+
+          {[...Array(totalSteps)].map((e, i) => (
+            <progress
+              key={i}
+              aria-label="loading 20%"
+              id="p02g"
+              max="6"
+              value={i + 1}
+              className="absolute top-6 h-2 w-full overflow-hidden rounded border border-base-300 bg-base-300 [&::-webkit-progress-bar]:bg-primary [&::-webkit-progress-value]:bg-base-100 [&::-moz-progress-bar]:bg-cyan-500"
+            >
+              {i + 1}
+            </progress>
+          ))}
+        </div>
+        <div>
+          {[...Array(totalSteps)].map((e, i) => (
+            <span
+              key={i}
+              style={{
+                margin: "0 5px",
+                fontWeight: step === i + 1 ? "bold" : "normal",
+              }}
+            >
+              {i + 1}
+            </span>
+          ))}
         </div>
         <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-100  rounded-3xl ">
           <div className="w-full   flex flex-col gap-2 items-center">
