@@ -148,7 +148,9 @@ export const Trading = () => {
             <div className="flex flex-col items-center gap-2">
               <span
                 className={`border border-base-300 p-2 rounded-full  ${
-                  step >= 6 ? "bg-base-100" : "bg-primary"
+                  step >= 6
+                    ? "bg-base-100 border-base-100"
+                    : "bg-primary border-base-300"
                 }`}
               >
                 <IoCheckmarkOutline size={"30px"} />
@@ -162,7 +164,6 @@ export const Trading = () => {
               </p>
             </div>
           </div>
-
           {[...Array(totalSteps)].map((e, i) => (
             <progress
               key={i}
@@ -170,9 +171,9 @@ export const Trading = () => {
               id="p02g"
               max="6"
               value={step}
-              className={`absolute top-6 h-2 w-full overflow-hidden rounded border border-base-300  ${
+              className={`absolute top-6 h-2 w-full overflow-hidden rounded border border-base-300 bg-base-300 ${
                 step === i + 1
-                  ? "bg-base-300 [&::-webkit-progress-bar]:bg-primary "
+                  ? "bg-base-300 [&::-webkit-progress-bar]:bg-base-100 "
                   : "[&::-webkit-progress-value]:bg-base-100 [&::-moz-progress-bar]:bg-base-100"
               }`}
             ></progress>

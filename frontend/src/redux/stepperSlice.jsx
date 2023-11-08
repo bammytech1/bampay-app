@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  step: 1,
+  step: 6,
   totalSteps: 6, // Current step of the form
   formData: {}, // Data for the form
 };
