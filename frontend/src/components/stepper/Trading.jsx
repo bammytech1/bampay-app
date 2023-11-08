@@ -169,11 +169,13 @@ export const Trading = () => {
               aria-label="loading 20%"
               id="p02g"
               max="6"
-              value={i + 1}
-              className="absolute top-6 h-2 w-full overflow-hidden rounded border border-base-300 bg-base-300 [&::-webkit-progress-bar]:bg-primary [&::-webkit-progress-value]:bg-base-100 [&::-moz-progress-bar]:bg-cyan-500"
-            >
-              {i + 1}
-            </progress>
+              value={step}
+              className={`absolute top-6 h-2 w-full overflow-hidden rounded border border-base-300  ${
+                step === i + 1
+                  ? "bg-base-300 [&::-webkit-progress-bar]:bg-primary "
+                  : "[&::-webkit-progress-value]:bg-base-100 [&::-moz-progress-bar]:bg-base-100"
+              }`}
+            ></progress>
           ))}
         </div>
         <div>
