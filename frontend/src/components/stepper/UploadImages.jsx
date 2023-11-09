@@ -1,6 +1,11 @@
 import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
+import {
+  setFormData,
+  nextStep,
+  prevStep,
+  tradeId,
+} from "../../redux/stepperSlice";
 
 function UploadImages() {
   const dispatch = useDispatch();
@@ -25,7 +30,7 @@ function UploadImages() {
         className="flex flex-col items-center w-full px-2"
       >
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
-          Trade ID: 6t3479287{" "}
+          Trade ID: {getData.id}
           <span className="text-secondary">
             <IoCopy />
           </span>

@@ -7,7 +7,12 @@ import { CgSpinner } from "react-icons/cg";
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
+import {
+  setFormData,
+  nextStep,
+  prevStep,
+  tradeId,
+} from "../../redux/stepperSlice";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 const GetVerified = () => {
   const dispatch = useDispatch();
@@ -16,6 +21,7 @@ const GetVerified = () => {
     e.preventDefault();
     const data = new FormData(e.target);
     dispatch(setFormData(Object.fromEntries(data.entries())));
+    dispatch(tradeId());
     dispatch(nextStep());
   };
 

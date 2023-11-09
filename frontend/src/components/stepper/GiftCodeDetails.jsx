@@ -20,11 +20,7 @@ function GiftCodeDetails() {
   };
   const getData = useSelector((state) => state.step);
   const [startDate, setStartDate] = useState();
-  const handleChangeRaw = (value) => {
-    if (value === "tomorrow") {
-      setStartDate(addDays(new Date(), 1));
-    }
-  };
+
   return (
     <>
       <form
@@ -32,7 +28,7 @@ function GiftCodeDetails() {
         className="flex flex-col items-center w-full px-2"
       >
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
-          Trade ID: 6t3479287{" "}
+          Trade ID: {getData.id}
           <span className="text-secondary">
             <IoCopy />
           </span>

@@ -21,14 +21,12 @@ import DeclinePage from "./DeclinePage";
 import GetVerified from "./GetVerified";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { prevStep } from "../../redux/stepperSlice";
+import { tradeId } from "../../redux/stepperSlice";
 
 export const Trading = () => {
-  // const dispatch = useDispatch();
-  // dispatch(prevStep());
-  // const { steps, totalSteps } = useSelector((state) => state.step);
+  const dispatch = useDispatch();
+  // dispatch(tradeId());
   const { step, totalSteps } = useSelector((state) => state.step);
-  // const [ steps, setSteps] = useState(1)
 
   const renderStep = () => {
     switch (step) {
@@ -167,31 +165,13 @@ export const Trading = () => {
           {[...Array(totalSteps)].map((e, i) => (
             <progress
               key={i}
-              aria-label="loading 20%"
-              id="p02g"
               max="6"
               value={step}
-              className={`absolute top-6 h-2 w-full overflow-hidden rounded border border-base-300 bg-base-300 ${
-                step === i + 1
-                  ? "bg-base-300 [&::-webkit-progress-bar]:bg-base-100 "
-                  : "[&::-webkit-progress-value]:bg-base-100 [&::-moz-progress-bar]:bg-base-100"
-              }`}
+              className="absolute  top-6 h-2 w-full overflow-hidden rounded  bg-base-300 [&::-webkit-progress-bar]:bg-base-300 [&::-webkit-progress-value]:bg-base-100  [&::-moz-progress-bar]:bg-base-100"
             ></progress>
           ))}
         </div>
-        <div>
-          {[...Array(totalSteps)].map((e, i) => (
-            <span
-              key={i}
-              style={{
-                margin: "0 5px",
-                fontWeight: step === i + 1 ? "bold" : "normal",
-              }}
-            >
-              {i + 1}
-            </span>
-          ))}
-        </div>
+
         <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-100  rounded-3xl ">
           <div className="w-full   flex flex-col gap-2 items-center">
             {renderStep()}

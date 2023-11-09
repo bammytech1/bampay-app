@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  step: 6,
-  totalSteps: 6, // Current step of the form
+  step: 1, // Current step of the form
+  totalSteps: 6,
+  id: {},
   formData: {}, // Data for the form
 };
 
@@ -23,9 +24,13 @@ const stepperSlice = createSlice({
         state.step -= 1;
       }
     },
+    tradeId: (state) => {
+      state.id = nanoid("12");
+    },
   },
 });
 
-export const { setFormData, nextStep, prevStep } = stepperSlice.actions;
+export const { setFormData, nextStep, prevStep, tradeId } =
+  stepperSlice.actions;
 
 export default stepperSlice.reducer;
