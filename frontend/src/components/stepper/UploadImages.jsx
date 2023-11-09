@@ -23,6 +23,10 @@ function UploadImages() {
 
   const getData = useSelector((state) => state.step);
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <>
       <form
@@ -31,7 +35,10 @@ function UploadImages() {
       >
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
           Trade ID: {getData.id}
-          <span className="text-secondary">
+          <span
+            onClick={() => copyToClipboard(getData.id)}
+            className="text-secondary"
+          >
             <IoCopy />
           </span>
         </p>
