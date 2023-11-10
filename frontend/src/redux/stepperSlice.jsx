@@ -25,7 +25,7 @@ const stepperSlice = createSlice({
       }
     },
     tradeId: (state) => {
-      state.id = nanoid("12");
+      state.id = nanoid("10");
     },
   },
 });

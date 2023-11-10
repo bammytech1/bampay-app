@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
 import {
   IoCloudUploadOutline,
   IoMailOpenOutline,
@@ -8,8 +5,6 @@ import {
   IoDocumentTextOutline,
   IoStopwatchOutline,
   IoCheckmarkOutline,
-  IoCopy,
-  IoArrowBackCircleSharp,
 } from "react-icons/io5";
 
 import StartTrade from "./StartTrade";
@@ -17,15 +12,11 @@ import GiftCodeDetails from "./GiftCodeDetails";
 import UploadImages from "./UploadImages";
 import Processing from "./Processing";
 import SuccessPage from "./SuccessPage";
-import DeclinePage from "./DeclinePage";
+// import DeclinePage from "./DeclinePage";
 import GetVerified from "./GetVerified";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { tradeId } from "../../redux/stepperSlice";
+import { useSelector } from "react-redux";
 
 export const Trading = () => {
-  const dispatch = useDispatch();
-  // dispatch(tradeId());
   const { step, totalSteps } = useSelector((state) => state.step);
 
   const renderStep = () => {
@@ -55,7 +46,7 @@ export const Trading = () => {
           <div className="z-10 flex justify-between items-center gap-4">
             <div className="flex flex-col items-center gap-2 ">
               <span
-                className={`border border-base-300 p-2 rounded-full  ${
+                className={`border  p-2 rounded-full  ${
                   step >= 1
                     ? "bg-base-100 border-base-100"
                     : "bg-primary border-base-300"
@@ -73,7 +64,7 @@ export const Trading = () => {
             </div>
             <div className="flex flex-col items-center gap-2">
               <span
-                className={`border border-base-300 p-2 rounded-full  ${
+                className={`border  p-2 rounded-full  ${
                   step >= 2
                     ? "bg-base-100 border-base-100"
                     : "bg-primary border-base-300"
@@ -91,7 +82,7 @@ export const Trading = () => {
             </div>
             <div className="flex flex-col items-center gap-2">
               <span
-                className={`border border-base-300 p-2 rounded-full  ${
+                className={`border  p-2 rounded-full  ${
                   step >= 3
                     ? "bg-base-100 border-base-100"
                     : "bg-primary border-base-300"
@@ -109,7 +100,7 @@ export const Trading = () => {
             </div>
             <div className="flex flex-col items-center gap-2">
               <span
-                className={`border border-base-300 p-2 rounded-full  ${
+                className={`border  p-2 rounded-full  ${
                   step >= 4
                     ? "bg-base-100 border-base-100"
                     : "bg-primary border-base-300"
@@ -127,7 +118,7 @@ export const Trading = () => {
             </div>
             <div className="flex flex-col items-center gap-2">
               <span
-                className={`border border-base-300 p-2 rounded-full  ${
+                className={`border  p-2 rounded-full  ${
                   step >= 5
                     ? "bg-base-100 border-base-100"
                     : "bg-primary border-base-300"
@@ -145,7 +136,7 @@ export const Trading = () => {
             </div>
             <div className="flex flex-col items-center gap-2">
               <span
-                className={`border border-base-300 p-2 rounded-full  ${
+                className={`border  p-2 rounded-full  ${
                   step >= 6
                     ? "bg-base-100 border-base-100"
                     : "bg-primary border-base-300"

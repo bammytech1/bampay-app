@@ -1,16 +1,40 @@
+import { motion } from "framer-motion";
 import { IoCopy, IoTime } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormData, nextStep } from "../../redux/stepperSlice";
 
 function Processing() {
+  //to be removed
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    dispatch(setFormData(Object.fromEntries(data.entries())));
+    dispatch(nextStep());
+  };
+  // to be removed
   const getData = useSelector((state) => state.step);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  };
   return (
     <>
-      <section className="flex flex-col items-center w-full px-2">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center w-full px-2"
+      >
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
           Trade ID: {getData.id}
-          <span className="text-secondary">
+          <motion.span
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => copyToClipboard(getData.id)}
+            className="text-primary"
+          >
             <IoCopy />
-          </span>
+          </motion.span>
         </p>
         <ul className=" flex flex-col text-neutral text-sm md:text-base items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
@@ -57,9 +81,14 @@ function Processing() {
             and relax you can also listen to some music{" "}
             <span className="text-primary">here</span>
           </p>
-          {/* <div>image will preview here</div> */}
+          <button
+            type="submit"
+            className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
+          >
+            Proceed
+          </button>
         </div>
-      </section>
+      </form>
     </>
   );
 }

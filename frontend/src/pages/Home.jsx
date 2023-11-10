@@ -8,9 +8,17 @@ import { JoinNews } from "../components/JoinNews";
 import { Latest } from "../components/Latest";
 import { Testimonial } from "../components/Testimonial";
 import { WhyUs } from "../components/WhyUs";
+import SEO from "../utils/SEO";
+
 function Home() {
   return (
     <>
+      <SEO
+        title="No1 Gift-card Trading platform"
+        description="user friendly site to trade crypto, gift cards, prepaid cards."
+        name="BamCoins."
+        type="article"
+      />
       <main className="flex flex-col gap-4">
         <Hero />
         <WhyUs />

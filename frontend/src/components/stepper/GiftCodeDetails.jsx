@@ -1,12 +1,11 @@
 import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
-import tradeTypes from "../../data/tradeTypes";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 function GiftCodeDetails() {
-  const newTrade = { ...tradeTypes };
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -21,6 +20,10 @@ function GiftCodeDetails() {
   const getData = useSelector((state) => state.step);
   const [startDate, setStartDate] = useState();
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <>
       <form
@@ -29,9 +32,14 @@ function GiftCodeDetails() {
       >
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
           Trade ID: {getData.id}
-          <span className="text-secondary">
+          <motion.span
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => copyToClipboard(getData.id)}
+            className="text-primary"
+          >
             <IoCopy />
-          </span>
+          </motion.span>
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>

@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import tradeTypes from "../../data/tradeTypes";
 import {
   IoCardOutline,
   IoChevronDownOutline,
@@ -10,10 +9,12 @@ import visa from "../../assets/Visa_icon.png";
 import master from "../../assets/Mastercard-icon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep } from "../../redux/stepperSlice";
+import { allTrades } from "../../redux/exchange/exchangeSlice";
 // import { useForm } from "react-hook-form";
 
 function StartTrade() {
-  // const toReceive = useSelector((state) => state.step);
+  const trades = useSelector(allTrades);
+  console.log(allTrades);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -28,8 +29,6 @@ function StartTrade() {
   console.log(inputValue);
 
   const spendInput = Number(inputValue) || [];
-
-  // const [receivedValue, setReceivedValue] = useState();
 
   const [check, setCheck] = useState(false);
   // const [prepaidCheck, setPrepaidCheck] = useState(false);
@@ -179,6 +178,7 @@ function StartTrade() {
 
                     <button
                       onClick={() => setCheck(!check)}
+                      onChange={(e) => setTradeType(e.target.value)}
                       type="button"
                       className="btn btn-accent bg-primary w-[130px] rounded-3xl  border-none  text-neutral "
                     >
@@ -256,29 +256,58 @@ function StartTrade() {
                           
                         )}
                       </div> */}
-                      <div className="px-2 h-[120px] overflow-y-auto">
-                        <div className="option flex flex-col items-start gap-2 ">
-                          {tradeTypes.map((trades) => {
+                      <div className="w-full  p-2 h-[150px] overflow-x-clip overflow-y-auto">
+                        <div className="option w-full  flex flex-col gap-2 ">
+                          {trades.map((tradeType) => {
                             return (
                               <div
-                                key={trades.id}
-                                className="relative bg-base-300 text-base-100 flex items-center gap-2 py-2 px-4 border rounded-3xl w-[90%]"
+                                key={tradeType.id}
+                                className="relative bg-neutral text-base-300 flex items-center gap-2 py-2 px-4 border rounded-md w-full"
                               >
                                 <IoCardOutline size={"20px"} />
-                                <input
-                                  onChange={(e) => {
-                                    const selectedTrade = e.target.value;
-                                    setTradeType(selectedTrade);
-                                  }}
-                                  type="radio"
-                                  name="categories"
-                                  id="categories"
-                                  value={trades.value}
-                                  className="w-full absolute opacity-0 "
-                                />
-                                <label htmlFor="vanilla" className=" font-bold">
-                                  {trades.label}
-                                </label>
+                                <div className="flex flex-col w-full gap-1">
+                                  <div className="flex items-center justify-between">
+                                    <input
+                                      onChange={(e) => {
+                                        const selectedTrade = e.target.value;
+                                        setTradeType(selectedTrade);
+                                      }}
+                                      type="radio"
+                                      name="giftType"
+                                      id="giftType"
+                                      value={tradeType.giftType}
+                                      className="w-full absolute opacity-0 "
+                                    />
+                                    <label
+                                      htmlFor="vanilla"
+                                      className=" font-bold text-lg"
+                                    >
+                                      {tradeType.giftType}
+                                    </label>
+                                    <span className="bg-primary text-neutral text-[8px] rounded-xl py-1 px-2">
+                                      Load time: 1hour
+                                    </span>
+                                  </div>
+                                  <div className="flex  items-center justify-between">
+                                    <span className=" text-[8px] ">
+                                      {tradeType.currency.usd}{" "}
+                                      <span className=" text-[8px] ">
+                                        {tradeType.needed.min}
+                                      </span>{" "}
+                                      -{" "}
+                                      <span className=" text-[8px] ">
+                                        <span className=" text-[8px]">
+                                          {tradeType.currency.usd}{" "}
+                                        </span>
+                                        {tradeType.needed.max}
+                                      </span>{" "}
+                                      per trade
+                                    </span>
+                                    <span className="font-semibold text-red-700 text-[8px]">
+                                      400/$
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
                             );
                           })}

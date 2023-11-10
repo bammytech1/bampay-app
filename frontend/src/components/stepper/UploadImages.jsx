@@ -1,11 +1,7 @@
 import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setFormData,
-  nextStep,
-  prevStep,
-  tradeId,
-} from "../../redux/stepperSlice";
+import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
+import { motion } from "framer-motion";
 
 function UploadImages() {
   const dispatch = useDispatch();
@@ -35,12 +31,14 @@ function UploadImages() {
       >
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
           Trade ID: {getData.id}
-          <span
+          <motion.span
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => copyToClipboard(getData.id)}
-            className="text-secondary"
+            className="text-primary"
           >
             <IoCopy />
-          </span>
+          </motion.span>
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
