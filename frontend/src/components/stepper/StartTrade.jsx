@@ -183,10 +183,45 @@ function StartTrade() {
                       className="btn btn-accent bg-primary w-[130px] rounded-3xl  border-none  text-neutral "
                     >
                       <div className="flex flex-col items-start m-auto">
-                        <span className="text-base font-bold ">{currency}</span>
+                        <input
+                          // onChange={(e) => {
+                          //   const selectedTrade = e.target.value;
+                          //   setTradeType(selectedTrade);
+                          // }}
+                          type="radio"
+                          name="currency"
+                          id="currency"
+                          value={currency}
+                          className="w-full absolute opacity-0 "
+                        />
+                        <label
+                          htmlFor="currency"
+                          className="text-base font-bold"
+                        >
+                          {currency}
+                        </label>
+                        <input
+                          // onChange={(e) => {
+                          //   const selectedTrade = e.target.value;
+                          //   setTradeType(selectedTrade);
+                          // }}
+                          type="radio"
+                          name="giftType"
+                          id="giftType"
+                          value={tradeType}
+                          className="w-full absolute opacity-0 "
+                        />
+                        <label
+                          htmlFor="giftType"
+                          className=" text-xs font-normal"
+                        >
+                          {tradeType}
+                        </label>
+
+                        {/* <span className="text-base font-bold ">{currency}</span>
                         <span className="text-xs font-normal ">
                           {tradeType}
-                        </span>
+                        </span> */}
                       </div>
                       <span>
                         {check ? (
@@ -268,12 +303,11 @@ function StartTrade() {
                                 <div className="flex flex-col w-full gap-1">
                                   <div className="flex items-center justify-between">
                                     <input
-                                      onSubmit={handleSubmit}
                                       onChange={(e) => {
                                         const selectedTrade = e.target.value;
                                         setTradeType(selectedTrade);
                                       }}
-                                      type="submit"
+                                      type="radio"
                                       name="giftType"
                                       id="giftType"
                                       value={tradeType.giftType}
