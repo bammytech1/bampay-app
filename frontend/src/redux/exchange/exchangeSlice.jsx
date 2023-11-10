@@ -8,6 +8,17 @@ const initialState = [
       min: "500",
       max: "2000",
     },
+    rate: "450",
+    currency: "USD",
+    time: "1:30min",
+  },
+  {
+    id: "2",
+    giftType: "Target",
+    needed: {
+      min: "200",
+      max: "2000",
+    },
     rate: {
       usd: "400",
       aud: "300",
@@ -22,14 +33,14 @@ const initialState = [
     },
   },
   {
-    id: "2",
-    giftType: "Target",
+    id: "3",
+    giftType: "Amex Visa",
     needed: {
-      min: "200",
-      max: "2000",
+      min: "400",
+      max: "1000",
     },
     rate: {
-      usd: "400",
+      usd: "500",
       aud: "300",
       cad: "302",
       gbp: "490",

@@ -268,11 +268,12 @@ function StartTrade() {
                                 <div className="flex flex-col w-full gap-1">
                                   <div className="flex items-center justify-between">
                                     <input
+                                      onSubmit={handleSubmit}
                                       onChange={(e) => {
                                         const selectedTrade = e.target.value;
                                         setTradeType(selectedTrade);
                                       }}
-                                      type="radio"
+                                      type="submit"
                                       name="giftType"
                                       id="giftType"
                                       value={tradeType.giftType}
