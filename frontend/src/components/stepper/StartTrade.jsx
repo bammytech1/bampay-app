@@ -31,6 +31,18 @@ function StartTrade() {
   const spendInput = Number(inputValue) || [];
 
   const [check, setCheck] = useState(false);
+  const toggleRef = useRef();
+  useEffect(() => {
+    const handler = (e) => {
+      if (check && toggleRef && !toggleRef.current.contains(e.target)) {
+        setCheck(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [check]);
   // const [prepaidCheck, setPrepaidCheck] = useState(false);
   const [tabSelected, setTabSelected] = useState({
     currentTab: 1,
@@ -94,8 +106,17 @@ function StartTrade() {
     };
   });
 
-  const [currency, setCurrency] = useState("USD");
-  const [tradeType, setTradeType] = useState("Vanilla");
+  const [currency, setCurrency] = useState("");
+  const [tradeType, setTradeType] = useState("");
+
+  // const giftItems = document.getElementById("giftItems");
+  // giftItems.addEventListener("click",  => {
+  //   giftItemsClick();
+  // });
+
+  // function giftItemsClick() {
+  //   console.log("giftItemsClick");
+  // }
 
   return (
     <>
@@ -159,7 +180,7 @@ function StartTrade() {
             </div>
             <div className="w-full  flex flex-col items-center gap-4">
               <div>
-                <div className="relative flex flex-col gap-2">
+                <div ref={toggleRef} className="relative flex flex-col gap-2">
                   <div className=" w-full flex gap-2 p-2 bg-base-100 border-2 border-base-300  rounded-3xl">
                     <div className="ml-2 text-accent">
                       <label htmlFor="">spend</label>
@@ -201,10 +222,6 @@ function StartTrade() {
                           {currency}
                         </label>
                         <input
-                          // onChange={(e) => {
-                          //   const selectedTrade = e.target.value;
-                          //   setTradeType(selectedTrade);
-                          // }}
                           type="radio"
                           name="giftType"
                           id="giftType"
@@ -292,17 +309,25 @@ function StartTrade() {
                         )}
                       </div> */}
                       <div className="w-full  p-2 h-[150px] overflow-x-clip overflow-y-auto">
-                        <div className="option w-full  flex flex-col gap-2 ">
+                        <div className=" w-full  flex flex-col gap-2 ">
                           {trades.map((tradeType) => {
                             return (
                               <div
+                                id="giftItems"
                                 key={tradeType.id}
+                                onChange={addEventListener("click", (e) => {
+                                  const selectedTrade = e.target.value;
+                                  setTradeType(selectedTrade);
+                                })}
                                 className="relative bg-neutral text-base-300 flex items-center gap-2 py-2 px-4 border rounded-md w-full"
                               >
                                 <IoCardOutline size={"20px"} />
                                 <div className="flex flex-col w-full gap-1">
                                   <div className="flex items-center justify-between">
-                                    <input
+                                    <p className=" font-bold text-lg">
+                                      {tradeType.giftType}
+                                    </p>
+                                    {/* <input
                                       onChange={(e) => {
                                         const selectedTrade = e.target.value;
                                         setTradeType(selectedTrade);
@@ -318,7 +343,7 @@ function StartTrade() {
                                       className=" font-bold text-lg"
                                     >
                                       {tradeType.giftType}
-                                    </label>
+                                    </label> */}
                                     <span className="bg-primary text-neutral text-[8px] rounded-xl py-1 px-2">
                                       Load time: 1hour
                                     </span>
