@@ -7,9 +7,11 @@ const initialState = [
     needed: {
       min: "500",
       max: "2000",
+      receipt: "cash Receipt",
     },
     rate: "450",
     currency: "USD",
+    symbol: "$",
     time: "1:30min",
   },
   {
@@ -19,18 +21,10 @@ const initialState = [
       min: "200",
       max: "2000",
     },
-    rate: {
-      usd: "400",
-      aud: "300",
-      cad: "302",
-      gbp: "490",
-    },
-    currency: {
-      usd: "USD",
-      cad: "CAD",
-      aud: "AUD",
-      gbp: "GBP",
-    },
+    rate: "350",
+    currency: "USD",
+    symbol: "$",
+    time: "1:10min",
   },
   {
     id: "3",
@@ -38,19 +32,12 @@ const initialState = [
     needed: {
       min: "400",
       max: "1000",
+      receipt: "cash Receipt",
     },
-    rate: {
-      usd: "500",
-      aud: "300",
-      cad: "302",
-      gbp: "490",
-    },
-    currency: {
-      usd: "USD",
-      cad: "CAD",
-      aud: "AUD",
-      gbp: "GBP",
-    },
+    rate: "710",
+    currency: "USD",
+    symbol: "$",
+    time: "30min",
   },
 ];
 
