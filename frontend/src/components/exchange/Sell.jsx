@@ -121,8 +121,8 @@ const Sell = () => {
                 className="btn btn-accent bg-primary border-none rounded-3xl w-[130px] justify-between text-neutral "
               >
                 <div className="flex flex-col items-start m-auto">
-                  <h3 className="text-base font-bold ">USDT</h3>
-                  <p className="text-xs font-normal ">Tether</p>
+                  <h3 className="text-base font-bold ">NGN</h3>
+                  <p className="text-xs font-normal ">Naira</p>
                 </div>
                 <span>
                   {check ? (
@@ -140,7 +140,7 @@ const Sell = () => {
           type="submit"
           className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
         >
-          Proceed
+          Sell
         </button>
 
         <p className="flex gap-2 text-base-300 items-center justify-center ">

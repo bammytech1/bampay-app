@@ -285,7 +285,7 @@ const Buy = () => {
           type="submit"
           className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
         >
-          Proceed
+          Buy
         </button>
 
         <p className="flex gap-2 text-base-300 items-center justify-center ">
