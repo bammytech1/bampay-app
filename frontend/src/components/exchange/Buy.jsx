@@ -10,6 +10,7 @@ import master from "../../assets/Mastercard-icon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep } from "../../redux/stepperSlice";
 import { allTrades } from "../../redux/exchange/exchangeSlice";
+import tradeTypes from "../../data/tradeTypes";
 const Buy = () => {
   const trades = useSelector(allTrades);
 
@@ -27,9 +28,7 @@ const Buy = () => {
 
   const spendInput = Number(inputValue) || [];
 
-  const receive = (e) => {
-    e.target.spendInput;
-  };
+  //   const receive = tradeTypes.rate;
 
   const [check, setCheck] = useState(false);
   const toggleRef = useRef();
@@ -46,6 +45,8 @@ const Buy = () => {
   }, [check]);
   const [currency, setCurrency] = useState("USD");
   const [tradeType, setTradeType] = useState("Vanilla Visa");
+  const [rate, setRate] = useState(spendInput);
+  const receiveInput = spendInput * rate || [];
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col items-center mb-4 text-base-300 gap-2 ">
@@ -83,7 +84,7 @@ const Buy = () => {
                     //   const selectedTrade = e.target.value;
                     //   setTradeType(selectedTrade);
                     // }}
-                    type="radio"
+                    type="text"
                     name="currency"
                     id="currency"
                     value={currency}
@@ -93,7 +94,7 @@ const Buy = () => {
                     {currency}
                   </label>
                   <input
-                    type="radio"
+                    type="text"
                     name="giftType"
                     id="giftType"
                     value={tradeType}
@@ -178,11 +179,11 @@ const Buy = () => {
                       </div> */}
                 <div className="w-full  p-2 h-[200px] overflow-x-clip overflow-y-auto">
                   <div className=" w-full  flex flex-col gap-2 ">
-                    {trades.map((tradeType) => {
+                    {trades.map((tradeTypes) => {
                       return (
                         <div
                           id="giftItems"
-                          key={tradeType.id}
+                          key={tradeTypes.id}
                           className="relative bg-neutral text-base-300 flex items-center gap-2 py-2 px-4 border rounded-md w-full"
                         >
                           <IoCardOutline size={"20px"} />
@@ -199,39 +200,50 @@ const Buy = () => {
                                 type="radio"
                                 name="giftType"
                                 id="giftType"
-                                value={tradeType.giftType}
+                                value={tradeTypes.giftType}
                                 className="w-full absolute  h-full opacity-0"
                               />
                               <label
                                 htmlFor="vanilla"
                                 className=" font-bold text-lg"
                               >
-                                {tradeType.giftType}
+                                {tradeTypes.giftType}
                               </label>
                               <span className="bg-primary text-neutral text-[8px] rounded-xl py-1 px-2">
-                                wait time: {tradeType.time}
+                                wait time: {tradeTypes.time}
                               </span>
                             </div>
                             <div className="flex  items-center justify-between">
                               <span className=" text-[8px] ">
-                                {tradeType.symbol}
+                                {tradeTypes.symbol}
                                 <span className=" text-[8px] ">
-                                  {tradeType.needed.min}
+                                  {tradeTypes.needed.min}
                                 </span>{" "}
                                 -{" "}
                                 <span className=" text-[8px] ">
                                   <span className=" text-[8px]">
-                                    {tradeType.symbol}
+                                    {tradeTypes.symbol}
                                   </span>
-                                  {tradeType.needed.max}
+                                  {tradeTypes.needed.max}
                                 </span>{" "}
                               </span>
                               <span className="bg-secondary text-base-300 text-[8px] rounded-xl py-1 px-2">
-                                {tradeType.needed.receipt}
+                                {tradeTypes.needed.receipt}
                               </span>
+                              <input
+                                onChange={(e) => {
+                                  const selectedRate = e.target.value;
+                                  setRate(selectedRate);
+                                }}
+                                type="radio"
+                                name="rate"
+                                id="rate"
+                                value={tradeTypes.rate}
+                                className="visible"
+                              />
 
                               <span className="font-semibold text-red-700 text-[8px]">
-                                {tradeType.rate}/{tradeType.symbol}
+                                {tradeTypes.rate}/{tradeTypes.symbol}
                               </span>
                             </div>
                           </div>
@@ -249,16 +261,15 @@ const Buy = () => {
               <div className="ml-2">
                 <p>receive</p>
                 <input
+                  key={tradeTypes.id}
                   type="text"
                   min="3"
                   max="10"
-                  id="receive"
                   name="receive"
-                  value={receive}
+                  value={receiveInput}
                   placeholder="0.00"
                   className="bg-transparent text-primary outline-none w-full max-w-xs pr-2"
                 />
-                <label htmlFor="receive">{receive}</label>
               </div>
               <button
                 // onClick={() => setCheck(!check)}

@@ -17,7 +17,9 @@ function GiftCodeDetails() {
   const handlePrev = () => {
     dispatch(prevStep());
   };
+
   const getData = useSelector((state) => state.step);
+  const toReceive = useSelector((state) => state.exchange);
   const [startDate, setStartDate] = useState();
 
   const copyToClipboard = (text) => {
@@ -43,16 +45,16 @@ function GiftCodeDetails() {
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
-            Vanilla Visa : <span>${getData.formData.spend}</span>
+            {getData.formData.giftType} : <span>${getData.formData.spend}</span>
           </li>
-          <li>
-            You Receive: <span>${getData.formData.spend * 2}</span>
+          <li key={toReceive.id}>
+            You Receive: <span>${getData.formData.receive}</span>
           </li>
         </ul>
         <div className="flex max-w-sm flex-col items-center gap-6 bg-base-100 rounded-3xl w-full  p-4">
           <div className="flex max-w-sm flex-col items-start gap-6 bg-primary rounded-3xl w-full p-4">
             <div className="flex  justify-between w-full text-neutral font-bold text-2xl ">
-              <p>Vanilla Visa</p>
+              <p className="text-lg">{getData.formData.giftType}</p>
               <p className="text-2xl text-secondary">
                 {" "}
                 ${getData.formData.spend}{" "}
