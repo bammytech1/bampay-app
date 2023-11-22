@@ -6,7 +6,7 @@ import { Trading } from "../components/stepper/Trading";
 function Trade() {
   return (
     <>
-      <section className="mb-6  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-32  ">
+      <section className="mb-6  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-24  ">
         <div className="relative container flex flex-col gap-6   w-full max-w-7xl md:py-8 ">
           <h2 className="text-center text-xl font-bold text-neutral md:text-5xl">
             Exchange

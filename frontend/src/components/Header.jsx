@@ -36,9 +36,9 @@ function Header() {
 
   return (
     <>
-      <header className="w-full  z-50  md:bg-neutral flex items-center justify-center ">
-        <nav className="w-full container max-w-7xl  bg-neutral text-base-300 m-4 md:m-0 p-4 rounded-2xl md:rounded-none ">
-          <div className="flex items-center w-full justify-around">
+      <header className="w-full h  z-50  md:bg-neutral flex items-center justify-center fixed ">
+        <nav className="w-full container  max-w-7xl  bg-neutral text-base-300  md:m-0 p-4 rounded-2xl md:rounded-none ">
+          <div className="flex  items-center w-full justify-around">
             <div className="md:hidden" onClick={() => setMenu(!menu)}>
               {menu ? <IoClose size={"25px"} /> : <IoMenu size={"25px"} />}
             </div>

@@ -9,7 +9,7 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   return (
     <>
-      <section className=" mb-6 bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  mt-32">
+      <section className=" mb-6 bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  mt-24">
         <div className="container  w-full max-w-7xl  ">
           <div className="place-content-center gap-1  grid md:grid-cols-2 mt-4">
             <motion.picture
