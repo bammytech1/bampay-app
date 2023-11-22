@@ -43,6 +43,7 @@ const Buy = () => {
       document.removeEventListener("mousedown", handler);
     };
   }, [check]);
+
   const [currency, setCurrency] = useState("USD");
   const [tradeType, setTradeType] = useState("Vanilla Visa");
   const [rate, setRate] = useState(spendInput);

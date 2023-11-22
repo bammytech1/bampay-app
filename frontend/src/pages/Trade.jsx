@@ -23,7 +23,7 @@ function Trade() {
             >
               <img className="" src={tradeImage} alt="wallet icon" />
             </motion.picture>
-            <div className=" flex max-w-sm flex-col items-center justify-center">
+            <div className=" flex  max-w-md p-4 flex-col items-center justify-center">
               <Trading />
             </div>
           </div>

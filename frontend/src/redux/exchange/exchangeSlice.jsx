@@ -7,7 +7,7 @@ const initialState = [
     needed: {
       min: "500",
       max: "2000",
-      receipt: "cash Receipt",
+      receipt: "Cash Receipt",
     },
     rate: "450",
     currency: "USD",
@@ -20,6 +20,7 @@ const initialState = [
     needed: {
       min: "200",
       max: "2000",
+      receipt: "Any Receipt",
     },
     rate: "350",
     currency: "USD",
@@ -32,7 +33,7 @@ const initialState = [
     needed: {
       min: "400",
       max: "1000",
-      receipt: "cash Receipt",
+      receipt: "Cash Receipt",
     },
     rate: "710",
     currency: "USD",
