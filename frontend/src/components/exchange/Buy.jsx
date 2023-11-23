@@ -43,7 +43,6 @@ const Buy = () => {
       document.removeEventListener("mousedown", handler);
     };
   }, [check]);
-
   const [currency, setCurrency] = useState("USD");
   const [tradeType, setTradeType] = useState("Vanilla Visa");
   const [rate, setRate] = useState(spendInput);
@@ -139,9 +138,9 @@ const Buy = () => {
                         USD
                       </option>
 
-                      <option value="aud">AUD</option>
-                      <option value="gbp">GBP</option>
-                      <option value="eur">EUR</option>
+                      <option value="AUD">AUD</option>
+                      <option value="GBP">GBP</option>
+                      <option value="EUR">EUR</option>
                     </select>
                   </span>
                 </p>
@@ -262,6 +261,10 @@ const Buy = () => {
               <div className="ml-2">
                 <p>receive</p>
                 <input
+                  onChange={(e) => {
+                    const selectedTrade = e.target.value;
+                    setRate(selectedTrade);
+                  }}
                   key={tradeTypes.id}
                   type="text"
                   min="3"

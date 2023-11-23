@@ -45,7 +45,10 @@ function GiftCodeDetails() {
         </p>
         <ul className=" flex flex-col text-neutral items-start gap-1 py-2 px-4 bg-primary w-full ">
           <li>
-            {getData.formData.giftType} : <span>${getData.formData.spend}</span>
+            {getData.formData.giftType} :{" "}
+            <span>
+              {getData.formData.spend} {getData.formData.currency}
+            </span>
           </li>
           <li key={toReceive.id}>
             You Receive: <span>${getData.formData.receive}</span>
@@ -57,20 +60,22 @@ function GiftCodeDetails() {
               <p className="text-lg">{getData.formData.giftType}</p>
               <p className="text-2xl text-secondary">
                 {" "}
-                ${getData.formData.spend}{" "}
+                {getData.formData.spend} {getData.formData.currency}
               </p>
             </div>
             <div className="group w-full relative ">
               <input
                 type="text"
+                inputMode="numeric"
                 name="cardNumber"
                 id="card"
+                placeholder="Card Number"
                 required
-                className="peer h-14 w-full rounded-3xl bg-base-100 px-4 text-sm outline-"
+                className="peer  h-14 w-full rounded-3xl bg-base-100 px-4 text-sm outline-0"
               />
               <label
                 htmlFor="cardNumber"
-                className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
+                className="absolute text-transparent left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
               >
                 Card number
               </label>
@@ -107,12 +112,13 @@ function GiftCodeDetails() {
                   type="text"
                   name="CardCvv"
                   id="cvv"
+                  placeholder="CVV"
                   required
-                  className="peer h-14 w-full rounded-3xl bg-base-100  text-sm "
+                  className="peer indent-3 h-14 w-full rounded-3xl bg-base-100  text-sm "
                 />
                 <label
-                  htmlFor="cvv"
-                  className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
+                  htmlFor="cardNumber"
+                  className="absolute  text-transparent left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-neutral peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-white"
                 >
                   CVV
                 </label>
@@ -124,22 +130,23 @@ function GiftCodeDetails() {
               type="text"
               name="usdt"
               id="usdt"
+              placeholder="USDT BEP20 Address"
               required
               className="peer h-14 w-full rounded-3xl bg-base-100 px-4 text-sm border-base-300 border-2"
             />
             <label
               htmlFor="usdt"
-              className="absolute left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-base-300 peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-base-300"
+              className="absolute text-transparent left-2 top-0 flex h-full transform items-center pl-2 text-base transition-all duration-300 group-focus-within:-top-7 group-focus-within:h-1/2 group-focus-within:pl-0 group-focus-within:text-xs group-focus-within:text-base-300 peer-valid:-top-7 peer-valid:h-1/2 peer-valid:pl-0 peer-valid:text-sm peer-valid:text-base-300"
             >
-              USDT Address
+              USDT BEP20 Address
             </label>
           </div>
 
           <div className="form-control justify-between w-full">
             <label className="cursor-pointer label">
-              <span className="label-text text-xs">
+              <span className="label-text text-[10px]">
                 By using this card, you agree to the prepaid card terms and also
-                confirmed i paste in correct BEP20 usdt address
+                confirmed you paste in correct BEP20 usdt address
               </span>
               <input
                 name="true"
