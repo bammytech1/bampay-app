@@ -39,7 +39,7 @@ export default {
 
           "base-200": "#4f4f4f",
           "base-100": "#4f4f4f",
-          primary: "#222222",
+          primary: "#060404",
 
           info: "#3abff8",
 

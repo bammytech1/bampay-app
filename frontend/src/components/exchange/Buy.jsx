@@ -11,10 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep } from "../../redux/stepperSlice";
 import { allTrades } from "../../redux/exchange/exchangeSlice";
 import tradeTypes from "../../data/tradeTypes";
+import { LoadingButton } from "../extras/LoadingButton";
 const Buy = () => {
   const trades = useSelector(allTrades);
 
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +51,7 @@ const Buy = () => {
   const [rate, setRate] = useState(spendInput);
   const receiveInput = spendInput * rate || [];
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="h-fit flex flex-col gap-4" onSubmit={handleSubmit}>
       <div className="flex flex-col items-center mb-4 text-base-300 gap-2 ">
         <p className="font-thin">Estimated price</p>
         <span className="font-semibold">1BTC - 21.443USD</span>
@@ -296,12 +299,9 @@ const Buy = () => {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
-        >
+        <LoadingButton type="submit" isLoading={isLoading}>
           Buy
-        </button>
+        </LoadingButton>
 
         <p className="flex gap-2 text-base-300 items-center justify-center ">
           we accept{" "}

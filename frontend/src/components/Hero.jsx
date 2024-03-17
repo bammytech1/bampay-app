@@ -5,6 +5,8 @@ import { IoRepeat } from "react-icons/io5";
 import visa from "../assets/Visa_icon.png";
 import master from "../assets/Mastercard-icon.png";
 import hero from "../assets/forhero.svg";
+import { Trading } from "./stepper/Trading";
+import StartTrade from "./stepper/StartTrade";
 
 function Hero() {
   const [tabSelected, setTabSelected] = useState({
@@ -62,12 +64,12 @@ function Hero() {
   });
   return (
     <>
-      <section className="  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-32  ">
-        <div className="container   w-full max-w-7xl md:py-8 ">
-          <h1 className="text-4xl text-neutral text-center font-bold mb-2 md:text-6xl lg:text-7xl">
+      <section className="  bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px] mt-20  ">
+        <div className="container   w-full max-w-7xl flex flex-col items-center md:py-8 ">
+          <h1 className="text-[3rem]  text-neutral text-center font-bold  mb-2 md:text-6xl lg:text-7xl">
             Buy Crypto with prepaid cards or <br /> Debit card
           </h1>
-          <p className="text-center mb-6 text-neutral  md:text-lg ">
+          <p className="text-center mb-6 w-full max-w-[80%] text-neutral  md:text-lg ">
             Trade you unwanted prepaid cards for up to 80% of their value
           </p>
           <div className="place-content-center gap-1  grid md:grid-cols-2 ">
@@ -82,7 +84,7 @@ function Hero() {
             >
               <img className="" src={hero} alt="wallet icon" />
             </motion.picture>
-            <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
+            {/* <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
               <div
                 className="w-full  flex flex-col items-center"
                 aria-multiselectable="false"
@@ -262,6 +264,9 @@ function Hero() {
                   </div>
                 </div>
               </div>
+            </div> */}
+            <div className=" border-2  py-6 rounded-3xl">
+              <StartTrade />
             </div>
           </div>
         </div>

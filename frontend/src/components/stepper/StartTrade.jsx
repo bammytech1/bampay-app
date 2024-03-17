@@ -60,7 +60,7 @@ function StartTrade() {
 
   return (
     <>
-      <fieldset className="px-6 flex flex-col items-center">
+      <fieldset className="px-6 flex flex-col items-center justify-center gap-4">
         <ul className="flex items-center gap-2" role="tablist" ref={wrapperRef}>
           <li className="" role="presentation">
             <button
