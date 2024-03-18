@@ -266,7 +266,7 @@ function Hero() {
               </div>
             </div> */}
             <div className=" border-2  py-6 rounded-3xl">
-              <StartTrade />
+              {/* <StartTrade /> */}
             </div>
           </div>
         </div>

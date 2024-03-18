@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  RESET_AUTH,
-  getUser,
-  logout,
-  updateUser,
-} from "../redux/features/auth/authSlice";
+import { RESET_AUTH, getUser, logout } from "../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 
 import { LoadingButton } from "../components/extras/LoadingButton";
 import { Link } from "react-router-dom";
+import { ExchangeFooter } from "../components/ExchangeFooter";
+import { IoArrowBack } from "react-icons/io5";
 
 function Settings() {
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -72,13 +69,16 @@ function Settings() {
   };
 
   return (
-    <>
-      <section className=" mb-6 h-full bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  mt-24">
+    <section className="flex flex-col items-center h-screen  ">
+      <h3 className="my-6 text-dark text-center text-[20px] md:text-3xl  font-bold">
+        Settings
+      </h3>
+      <div className="relative mb-6 h-full bg-primary w-full flex justify-center items-center py-8 px-6  rounded-[50px] md:rounded-[100px]  ">
         {/* <BreadCrumb title="Profile" /> */}
+        <Link to={"/"} className="absolute left-6 top-10 md:left-72">
+          <IoArrowBack style={{ fontSize: "30px" }} />
+        </Link>
         <div className="container  w-full max-w-7xl  ">
-          <h3 className="text-dark text-center text-lg md:text-3xl  font-bold">
-            Settings
-          </h3>
           <div className="place-content-center gap-1  ">
             <div className="flex  items-center justify-center">
               <div className="flex h-fit  w-full flex-col items-center justify-center rounded-3xl   py-6">
@@ -348,8 +348,9 @@ function Settings() {
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+      <ExchangeFooter />
+    </section>
   );
 }
 

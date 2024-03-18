@@ -4,7 +4,6 @@ import {
   IoClose,
   IoNotificationsOutline,
   IoPersonCircleOutline,
-  //   IoNotificationsSharp,
 } from "react-icons/io5";
 import { themeChange } from "theme-change";
 import { useEffect, useRef, useState } from "react";
@@ -37,14 +36,14 @@ function Header() {
   };
 
   useEffect(() => {
-    if (menu || open) {
+    if (menu) {
       // Apply the classes to disable scrolling and blur the background
       document.body.classList.add("no-scroll");
     } else {
       // Remove the classes when the menu is closed
       document.body.classList.remove("no-scroll");
     }
-  }, [menu, open]);
+  }, [menu]);
 
   const dropdownRef = useRef(null);
 
@@ -75,7 +74,7 @@ function Header() {
       <header
         // id="main-content"
         ref={dropdownRef}
-        className="w-full h  z-50  md:bg-neutral flex items-center justify-center fixed "
+        className="w-full h-fit z-50  md:bg-neutral flex items-center justify-center sticky top-0 "
       >
         <nav className="w-full container  max-w-7xl  bg-neutral text-base-300  md:m-0 p-4  md:rounded-none ">
           <div className="flex  items-center w-full justify-around">
@@ -84,13 +83,31 @@ function Header() {
             </div>
 
             <div className="z-30">Logo</div>
-            <ul className="hidden md:flex justify-between items-center gap-4">
-              <Link to={"#"}>Company</Link>
-              <Link to={"#"}>Resourses</Link>
-              <Link to={"#"}>blogs</Link>
-              <Link to={"#"}>Prices</Link>
-              <Link to={"#"}>FAQs</Link>
-            </ul>
+            <ShowOnLogout>
+              <ul className="hidden md:flex justify-between items-center gap-4">
+                <Link to={"#"}>Company</Link>
+                <Link to={"#"}>Resourses</Link>
+                <Link to={"#"}>blogs</Link>
+                <Link to={"#"}>Prices</Link>
+                <Link to={"#"}>FAQs</Link>
+              </ul>
+            </ShowOnLogout>
+            <ShowOnLogin>
+              <ul className="hidden w-full max-w-lg md:flex justify-between items-center gap-4">
+                <Link to={"#"} className="text-lg">
+                  Exchange
+                </Link>
+                <Link to={"#"} className="text-lg">
+                  Wallet
+                </Link>
+                <Link to={"#"} className="text-lg">
+                  Send
+                </Link>
+                <Link to={"#"} className="text-lg">
+                  Receive
+                </Link>
+              </ul>
+            </ShowOnLogin>
             <input
               type="checkbox"
               // checked

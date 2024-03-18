@@ -28,7 +28,7 @@ const Login = () => {
   // Adjust useEffect to navigate on success, no need to manually toggle loading state here
   useEffect(() => {
     if (isSuccess && user) {
-      navigate("/");
+      navigate("/trade-Home");
       // Reset any auth state if needed here
     }
 
@@ -57,7 +57,7 @@ const Login = () => {
 
     try {
       await dispatch(login(userData)).unwrap();
-      navigate("/"); // Navigate to dashboard or home page
+      navigate("/trade-Home"); // Navigate to dashboard or home page
     } catch (error) {
       setIsLoading(false);
       if (error.info === "Please verify your email before logging in.") {

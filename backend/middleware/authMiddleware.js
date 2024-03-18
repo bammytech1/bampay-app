@@ -38,17 +38,6 @@ const adminOnly = (req, res, next) => {
   }
 };
 
-// const admin = (req, res, next) => {
-//   auth(req, res, () => {
-//     if (req.user.admin) {
-//       next();
-//     } else {
-//       res.status(401);
-//       throw new Error("Access denied. not authorized");
-//     }
-//   });
-// };
-
 module.exports = {
   protect,
   adminOnly,

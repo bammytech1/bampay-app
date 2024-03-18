@@ -13,7 +13,6 @@ import UploadImages from "./UploadImages";
 import Processing from "./Processing";
 import SuccessPage from "./SuccessPage";
 // import DeclinePage from "./DeclinePage";
-import GetVerified from "./GetVerified";
 import { useSelector } from "react-redux";
 
 export const Trading = () => {
@@ -24,8 +23,6 @@ export const Trading = () => {
       case 1:
         return <StartTrade />;
       case 2:
-        return <GetVerified />;
-      case 3:
         return <GiftCodeDetails />;
       case 4:
         return <UploadImages />;
@@ -41,7 +38,7 @@ export const Trading = () => {
 
   return (
     <>
-      <section action="" className="flex flex-col items-center">
+      <section action="" className="flex flex-col items-center w-full max-w-sm">
         <div className=" relative flex justify-between items-center gap-4 my-2">
           <div className="z-10 flex justify-between items-center gap-4">
             <div className="flex flex-col items-center gap-2 ">
@@ -62,6 +59,7 @@ export const Trading = () => {
                 Start
               </p>
             </div>
+
             <div className="flex flex-col items-center gap-2">
               <span
                 className={`border  p-2 rounded-full  ${
@@ -70,14 +68,14 @@ export const Trading = () => {
                     : "bg-primary border-base-300"
                 }`}
               >
-                <IoMailOpenOutline size={"30px"} />
+                <IoCardOutline size={"30px"} />
               </span>
               <p
                 className={`text-xs ${
                   step >= 2 ? "text-base-100" : "text-base-300"
                 }`}
               >
-                Phone
+                Wallet
               </p>
             </div>
             <div className="flex flex-col items-center gap-2">
@@ -88,14 +86,14 @@ export const Trading = () => {
                     : "bg-primary border-base-300"
                 }`}
               >
-                <IoCardOutline size={"30px"} />
+                <IoCloudUploadOutline size={"30px"} />
               </span>
               <p
                 className={`text-xs ${
                   step >= 3 ? "text-base-100" : "text-base-300"
                 }`}
               >
-                Wallet
+                Images
               </p>
             </div>
             <div className="flex flex-col items-center gap-2">
@@ -106,14 +104,14 @@ export const Trading = () => {
                     : "bg-primary border-base-300"
                 }`}
               >
-                <IoCloudUploadOutline size={"30px"} />
+                <IoStopwatchOutline size={"30px"} />
               </span>
               <p
                 className={`text-xs ${
                   step >= 4 ? "text-base-100" : "text-base-300"
                 }`}
               >
-                Images
+                Process
               </p>
             </div>
             <div className="flex flex-col items-center gap-2">
@@ -124,29 +122,11 @@ export const Trading = () => {
                     : "bg-primary border-base-300"
                 }`}
               >
-                <IoStopwatchOutline size={"30px"} />
-              </span>
-              <p
-                className={`text-xs ${
-                  step >= 5 ? "text-base-100" : "text-base-300"
-                }`}
-              >
-                Process
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <span
-                className={`border  p-2 rounded-full  ${
-                  step >= 6
-                    ? "bg-base-100 border-base-100"
-                    : "bg-primary border-base-300"
-                }`}
-              >
                 <IoCheckmarkOutline size={"30px"} />
               </span>
               <p
                 className={`text-xs ${
-                  step >= 6 ? "text-base-100" : "text-base-300"
+                  step >= 5 ? "text-base-100" : "text-base-300"
                 }`}
               >
                 Finish
@@ -156,7 +136,7 @@ export const Trading = () => {
           {[...Array(totalSteps)].map((e, i) => (
             <progress
               key={i}
-              max="6"
+              max="5"
               value={step}
               className="absolute  top-6 h-2 w-full overflow-hidden rounded  bg-base-300 [&::-webkit-progress-bar]:bg-base-300 [&::-webkit-progress-value]:bg-base-100  [&::-moz-progress-bar]:bg-base-100"
             ></progress>

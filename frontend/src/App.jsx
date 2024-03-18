@@ -25,6 +25,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Exchange from "./pages/Exchange";
+import Wallet from "./pages/Wallet";
+import TradeHome from "./pages/TradeHome";
 
 function App() {
   const location = useLocation();
@@ -84,6 +87,9 @@ function App() {
           <Route path="verify-Mail" element={<VerifyMail />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="exchange" element={<Exchange />} />
+          <Route path="wallet" element={<Wallet />} />
+          <Route path="trade-Home" element={<TradeHome />} />
           <Route path="verify-Phone" element={<VerifyPhone />} />
           <Route path="trade:/id" element={<Trade />} />
         </Route>

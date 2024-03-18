@@ -19,7 +19,7 @@ function Home() {
         name="BamCoins."
         type="article"
       />
-      <main className="flex flex-col gap-4">
+      <main className="flex flex-col gap-4 ">
         <Hero />
         <WhyUs />
         <Advantages />
