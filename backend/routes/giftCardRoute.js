@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const {
-  createTrade,
-  getTrades,
-  getTradeById,
-  updateTrade,
-  deleteTrade,
+  createGiftCards,
+  getGiftCards,
+  getGiftCardById,
+  updateGiftCard,
+  deleteGiftCard,
 } = require("../controllers/giftCardController");
 
 // Assuming you have authentication middleware to protect routes
@@ -13,13 +13,13 @@ const { protect, adminOnly } = require("../middleware/authMiddleware");
 
 router
   .route("/")
-  .get(protect, getTrades) // Get all trades
-  .post(protect, createTrade); // Create a new trade
+  .get(protect, getGiftCards) // Get all cards
+  .post(protect, createGiftCards); // Create a new card
 
 router
   .route("/:id")
-  .get(protect, getTradeById) // Get a trade by ID
-  .patch(protect, updateTrade) // Update a trade
-  .delete(protect, deleteTrade); // Delete a trade
+  .get(protect, getGiftCardById) // Get a trade by ID
+  .patch(protect, updateGiftCard) // Update a trade
+  .delete(protect, deleteGiftCard); // Delete a trade
 
 module.exports = router;

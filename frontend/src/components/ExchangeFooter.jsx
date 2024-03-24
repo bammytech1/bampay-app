@@ -11,8 +11,8 @@ export const ExchangeFooter = () => {
   };
 
   return (
-    <div className="sticky w-full -400 bottom-0 p-4 bg-base-100 z-40 flex md:hidden items-base justify-evenly">
-      <div className="w-full flex text-dark justify-between p-4 ">
+    <div className="sticky w-full  bottom-0 p-4 bg-base-100 z-40 flex md:hidden items-base justify-evenly">
+      <div className="w-full flex text-dark justify-between px-4 ">
         <NavLink
           to="/trade-Home"
           style={({ isActive }) => (isActive ? activeStyle : linkStyle)}

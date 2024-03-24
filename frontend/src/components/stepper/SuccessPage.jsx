@@ -13,7 +13,7 @@ function SuccessPage() {
     <>
       <section className="flex flex-col items-center w-full px-2">
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
-          Trade ID: {getData.id}
+          {/* Trade ID: {getData.id} */}
           <motion.span
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}

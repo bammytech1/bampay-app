@@ -28,3 +28,20 @@
 .react-datepicker__month-wrapper {
   @apply !flex-wrap  gap-3 items-center justify-center cursor-pointer hidden;
 }
+
+/* For Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.active-class {
+  background-color: black; /* or any indicator of active state */
+  color: white;
+}

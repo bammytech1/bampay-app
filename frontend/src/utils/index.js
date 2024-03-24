@@ -6,6 +6,17 @@ export const shortenText = (text, n) => {
   return text;
 };
 
+export const shortenMiddle = (text, startChars, endChars) => {
+  if (text.length > startChars + endChars) {
+    return (
+      text.substring(0, startChars) +
+      "...." +
+      text.substring(text.length - endChars)
+    );
+  }
+  return text;
+};
+
 //email validation
 export const validateEmail = (email) => {
   return email.match(

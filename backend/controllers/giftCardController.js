@@ -1,63 +1,64 @@
 const GiftCard = require("../models/giftcardModel");
 
 // Create a new gift card trade
-exports.createTrade = async (req, res) => {
+exports.createGiftCards = async (req, res) => {
   try {
-    const trade = new GiftCard({
+    const giftCards = new GiftCard({
       ...req.body,
       user: req.user._id, // Assuming you have middleware to set req.user
     });
-    await trade.save();
-    res.status(201).json(trade);
+    await giftCards.save();
+    res.status(201).json(giftCards);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-// Get all trades
-exports.getTrades = async (req, res) => {
+// Get all giftCardss
+exports.getGiftCards = async (req, res) => {
   try {
-    const trades = await GiftCard.find().populate("user", "name");
-    res.json(trades);
+    const giftCards = await GiftCard.find().populate("user", "name");
+    console.log(giftCards); // Check the fetched data
+    res.json(giftCards);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Get a single trade by ID
-exports.getTradeById = async (req, res) => {
+// Get a single giftCards by ID
+exports.getGiftCardById = async (req, res) => {
   try {
-    const trade = await GiftCard.findById(req.params.id);
-    if (!trade) {
-      return res.status(404).json({ message: "Trade not found" });
+    const giftCard = await GiftCard.findById(req.params.id);
+    if (!giftCard) {
+      return res.status(404).json({ message: "GiftCards not found" });
     }
-    res.json(trade);
+    res.json(giftCard);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Update a trade
-exports.updateTrade = async (req, res) => {
+// Update a giftCards
+exports.updateGiftCard = async (req, res) => {
   try {
-    const trade = await GiftCard.findByIdAndUpdate(req.params.id, req.body, {
+    const giftCard = await GiftCard.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    if (!trade) {
-      return res.status(404).json({ message: "Trade not found" });
+    if (!giftCard) {
+      return res.status(404).json({ message: "GiftCards not found" });
     }
-    res.json(trade);
+    res.json(giftCard);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-// Delete a trade
-exports.deleteTrade = async (req, res) => {
+// Delete a giftCards
+exports.deleteGiftCard = async (req, res) => {
   try {
-    const trade = await GiftCard.findByIdAndDelete(req.params.id);
-    if (!trade) {
-      return res.status(404).json({ message: "Trade not found" });
+    const giftCard = await GiftCard.findByIdAndDelete(req.params.id);
+    if (!giftCard) {
+      return res.status(404).json({ message: "GiftCards not found" });
     }
     res.status(204).send();
   } catch (error) {

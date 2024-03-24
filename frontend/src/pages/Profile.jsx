@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { LoadingButton } from "../components/extras/LoadingButton";
 import { Link } from "react-router-dom";
 import { ExchangeFooter } from "../components/ExchangeFooter";
-import MinFooter from "../components/MinFooter";
 import { IoArrowBack } from "react-icons/io5";
 
 function Profile() {

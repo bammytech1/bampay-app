@@ -2,7 +2,7 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 const MailGen = require("mailgen");
 
-const sendEmail = async (subject, send_to, template) => {
+const sendEmail = async (subject, send_to, text, template) => {
   // Create Email Transporter
   const transporter = nodemailer.createTransport({
     service: "outlook",
@@ -34,6 +34,7 @@ const sendEmail = async (subject, send_to, template) => {
     from: process.env.EMAIL_USER, // sender address
     to: send_to, // list of receivers
     subject, // Subject line
+    text,
     html: emailBody, // Generated HTML body from Mailgen
   };
 

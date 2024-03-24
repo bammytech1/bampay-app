@@ -317,7 +317,7 @@ const authSlice = createSlice({
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = false;
@@ -373,7 +373,7 @@ const authSlice = createSlice({
       .addCase(deleteUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteUser.fulfilled, (state, action) => {
+      .addCase(deleteUser.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
@@ -427,7 +427,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         // handle pending state if needed
       })
-      .addCase(forgotPassword.fulfilled, (state, action) => {
+      .addCase(forgotPassword.fulfilled, (state) => {
         state.isSuccess = true;
         toast.success("Password reset email sent. Check your inbox.");
       })

@@ -1,6 +1,5 @@
 import {
   IoCloudUploadOutline,
-  IoMailOpenOutline,
   IoCardOutline,
   IoDocumentTextOutline,
   IoStopwatchOutline,
@@ -24,11 +23,11 @@ export const Trading = () => {
         return <StartTrade />;
       case 2:
         return <GiftCodeDetails />;
-      case 4:
+      case 3:
         return <UploadImages />;
-      case 5:
+      case 4:
         return <Processing />;
-      case 6:
+      case 5:
         return <SuccessPage />;
       // Add cases for other steps...
       default:
@@ -75,7 +74,7 @@ export const Trading = () => {
                   step >= 2 ? "text-base-100" : "text-base-300"
                 }`}
               >
-                Wallet
+                Card
               </p>
             </div>
             <div className="flex flex-col items-center gap-2">
@@ -144,7 +143,7 @@ export const Trading = () => {
         </div>
 
         <section className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-100  rounded-3xl ">
-          <div className="w-full   flex flex-col gap-2 items-center">
+          <div className="w-full    flex flex-col gap-2 items-center">
             {renderStep()}
           </div>
         </section>

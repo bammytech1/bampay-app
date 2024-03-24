@@ -41,7 +41,6 @@ const giftCardSchema = new mongoose.Schema(
 
     bin: {
       type: Number,
-      required: [true, "Please add a quantity"],
       trim: true,
     },
     rate: {

@@ -61,12 +61,12 @@ function StartTrade() {
   return (
     <>
       <fieldset className="px-6 flex flex-col items-center justify-center gap-4">
-        <ul className="flex items-center gap-2" role="tablist" ref={wrapperRef}>
+        <ul className="flex items-center gap-4" role="tablist" ref={wrapperRef}>
           <li className="" role="presentation">
-            <button
-              className={`btn btn-accent text-neutral  rounded-3xl px-7 ${
+            <a
+              className={`text-3xl cursor-pointer  ${
                 tabSelected.currentTab === 1
-                  ? "btn-success bordered border-neutral text-white hover:btn-neutral focus:btn-primary disabled:bg-emerald-300"
+                  ? " text-primary border-b-2 border-b-primary hover:text-base-200 focus:text-primary disabled:"
                   : "w-full justify-self-center "
               }`}
               id="tab-label-1e"
@@ -80,15 +80,15 @@ function StartTrade() {
               }`}
               onClick={() => setTabSelected({ ...tabSelected, currentTab: 1 })}
             >
-              <span>Buy</span>
-            </button>
+              <span>GiftCard</span>
+            </a>
           </li>
           <li className="" role="presentation">
-            <button
-              className={`btn  btn-accent text-neutral rounded-3xl px-7 ${
+            <a
+              className={`text-3xl cursor-pointer   ${
                 tabSelected.currentTab === 2
-                  ? "btn-success bordered border-neutral text-white hover:btn-neutral focus:btn-primary disabled:bg-emerald-300"
-                  : "w-full justify-self-center"
+                  ? " text-primary border-b-2 border-b-primary hover:text-base-200 focus:text-primary disabled:"
+                  : "w-full justify-self-center "
               }`}
               id="tab-label-2e"
               role="tab"
@@ -101,8 +101,8 @@ function StartTrade() {
               }`}
               onClick={() => setTabSelected({ ...tabSelected, currentTab: 2 })}
             >
-              <span>Sell</span>
-            </button>
+              <span>crypto</span>
+            </a>
           </li>
         </ul>
         <div
