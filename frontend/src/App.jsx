@@ -28,6 +28,12 @@ import Settings from "./pages/Settings";
 import Exchange from "./pages/Exchange";
 import Wallet from "./pages/Wallet";
 import TradeHome from "./pages/TradeHome";
+import StartTrade from "./components/stepper/StartTrade";
+import GiftCodeDetails from "./components/stepper/GiftCodeDetails";
+import UploadImages from "./components/stepper/UploadImages";
+import Processing from "./components/stepper/Processing";
+import SuccessPage from "./components/stepper/SuccessPage";
+import DeclinePage from "./components/stepper/DeclinePage";
 
 function App() {
   const location = useLocation();
@@ -87,7 +93,14 @@ function App() {
           <Route path="verify-Mail" element={<VerifyMail />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="exchange" element={<Exchange />} />
+          <Route path="exchange" element={<Exchange />}>
+            <Route index element={<StartTrade />} />
+            <Route path="gift-code-details" element={<GiftCodeDetails />} />
+            <Route path="upload-images" element={<UploadImages />} />
+            <Route path="processing" element={<Processing />} />
+            <Route path="success" element={<SuccessPage />} />
+            <Route path="decline" element={<DeclinePage />} />
+          </Route>
           <Route path="wallet" element={<Wallet />} />
           <Route path="trade-Home" element={<TradeHome />} />
           <Route path="verify-Phone" element={<VerifyPhone />} />

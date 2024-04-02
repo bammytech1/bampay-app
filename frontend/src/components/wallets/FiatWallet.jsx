@@ -1,15 +1,52 @@
-import React from "react";
+import { useState, useEffect } from "react";
+
 import { IoRefresh } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchBalance,
+  startWithdrawal,
+} from "../../redux/features/wallet/walletSlice";
+import TradeHistory from "../trades/TradeHistory";
+fetchBalance;
 
 const FiatWallet = () => {
+  const dispatch = useDispatch();
+  const { balance, isLoading } = useSelector((state) => state.wallet); // Assuming your wallet slice state shape
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchBalance());
+  }, [dispatch, isRefreshing]);
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    dispatch(fetchBalance());
+    setIsRefreshing(false);
+  };
+
+  const handleWithdraw = () => {
+    // Initiate withdrawal logic here
+    // This might involve setting a state to open a modal or directly calling a dispatch action
+    dispatch(startWithdrawal());
+  };
+
   return (
     <div className="  w-full max-w-7xl bg-primary rounded-t-[50px] ">
       <div className=" ">
         <div className="flex flex-col  items-center justify-center gap-4 py-10">
           <p>Balance</p>
-          <IoRefresh style={{ fontSize: "25px" }} />
-          <h3 className="text-3xl font-bold md:text-5xl">0.00 NGN</h3>
-          <button className="btn btn-secondary rounded-3xl text-base-300">
+          <button
+            onClick={handleRefresh}
+            className=""
+            disabled={isLoading || isRefreshing}
+          >
+            <IoRefresh style={{ fontSize: "25px" }} />
+          </button>
+          <h3 className="text-3xl font-bold md:text-5xl">{balance} NGN</h3>
+          <button
+            onClick={handleWithdraw}
+            className="btn btn-secondary rounded-3xl text-base-300"
+          >
             Withdraw
           </button>
         </div>
@@ -36,10 +73,16 @@ const FiatWallet = () => {
               </svg>
             </label>
           </div>
-          <p className="text-center">
-            You have no transaction yet <br /> start with something
-          </p>
-          <button className="btn btn-primary rounded-3xl">Sell GiftCard</button>
+          <>
+            <p className="text-center">
+              You have no transaction yet <br /> start with something
+            </p>
+            <button className="btn btn-primary rounded-3xl">
+              Sell GiftCard
+            </button>
+          </>
+
+          <TradeHistory />
         </div>
       </div>
     </div>

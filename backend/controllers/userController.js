@@ -448,6 +448,40 @@ const updatePhoto = asyncHandler(async (req, res) => {
   res.status(200).json(updatedUser);
 });
 
+const withdrawFunds = async (userId, amount, bankDetails) => {
+  // Validate the amount and bankDetails
+  // Check if the user has sufficient balance
+  // Call the payment processor's API to initiate the withdrawal
+  // Update the user's wallet balance upon successful withdrawal
+};
+
+const transferFundsToUser = async (fromUserId, toUserEmail, amount) => {
+  try {
+    const fromUser = await User.findById(fromUserId);
+    const toUser = await User.findOne({ email: toUserEmail });
+
+    if (!fromUser || !toUser) {
+      throw new Error("User(s) not found");
+    }
+    if (fromUser.walletBalance < amount) {
+      throw new Error("Insufficient funds");
+    }
+
+    // Perform the transfer
+    fromUser.walletBalance -= amount;
+    toUser.walletBalance += amount;
+
+    await fromUser.save();
+    await toUser.save();
+
+    console.log(
+      `Funds transferred: ${amount} from ${fromUser.email} to ${toUser.email}`
+    );
+  } catch (error) {
+    console.error("Error transferring funds:", error.message);
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
@@ -463,4 +497,6 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
+  withdrawFunds,
+  transferFundsToUser,
 };

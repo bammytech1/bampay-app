@@ -1,25 +1,53 @@
 import { motion } from "framer-motion";
 import { IoCopy, IoTime } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, nextStep } from "../../redux/stepperSlice";
+import { nextStep } from "../../redux/stepperSlice";
 import { shortenMiddle } from "../../utils";
 import Countdown from "../extras/Countdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchTradeStatus } from "../../redux/features/trade/tradeSlice";
 
 function Processing() {
-  //to be removed
   const dispatch = useDispatch();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    dispatch(setFormData(Object.fromEntries(data.entries())));
-    dispatch(nextStep());
-  };
-
   const [timeLeft, setTimeLeft] = useState({});
   const getData = useSelector((state) => state.step);
   const selectedGiftCard = useSelector((state) => state.step.selectedGiftCard);
+  const { tradeMongoId, setTradeMongoId, tradeStatus } = useSelector(
+    (state) => state.step
+  );
+  console.log("setTradeMongoId", setTradeMongoId);
+  console.log("tradeMongoId:", tradeMongoId);
+  console.log("tradeStatus:", tradeStatus);
+
+  const [polling, setPolling] = useState(true);
+
+  useEffect(() => {
+    const pollStatus = () => {
+      if (polling && tradeMongoId) {
+        dispatch(fetchTradeStatus(tradeMongoId));
+      }
+    };
+
+    // If tradeMongoId is available, start polling
+    if (tradeMongoId) {
+      const intervalId = setInterval(pollStatus, 5000); // Poll every 5 seconds
+      return () => clearInterval(intervalId); // Cleanup
+    }
+  }, [dispatch, tradeMongoId, polling]); // Make sure to include tradeMongoId in the dependency array
+
+  useEffect(() => {
+    if (tradeStatus === "success" || tradeStatus === "decline") {
+      setPolling(false);
+      dispatch(nextStep());
+    }
+  }, [tradeStatus, dispatch]);
+
+  const checkStatus = () => {
+    if (tradeMongoId) {
+      dispatch(fetchTradeStatus(tradeMongoId));
+      console.log("checkStatus:", tradeMongoId);
+    }
+  };
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
@@ -31,10 +59,7 @@ function Processing() {
   };
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center w-full px-2"
-      >
+      <div className="flex flex-col items-center w-full px-2">
         <p className="text-center flex justify-center items-center gap-3 mb-4 ">
           Trade ID: {getData.id}
           <motion.span
@@ -76,7 +101,7 @@ function Processing() {
               Please wait while we process your card{" "}
             </p>
             <Countdown
-              waitTime={selectedGiftCard.waitTime}
+              waitTime={selectedGiftCard?.waitTime}
               onTimeUpdate={handleTimeUpdate}
             />
 
@@ -88,19 +113,22 @@ function Processing() {
             <span className="text-primary">
               {timeLeft.minutes !== undefined
                 ? `${timeLeft.minutes}m ${timeLeft.seconds}s`
-                : `${selectedGiftCard.waitTime}min`}
+                : `${selectedGiftCard?.waitTime}min`}
             </span>{" "}
             <br />
             sit back and relax
           </p>
-          {/* <button
-            type="submit"
-            className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
-          >
-            Proceed
-          </button> */}
+          {timeLeft.minutes === 0 && (
+            <button
+              type="button"
+              className=" capitalize w-[90%] btn  btn-primary font-thin  text-neutral hover:btn-accent hover:text-neutral border-2 rounded-3xl border-neutral"
+            >
+              Ping Support
+            </button>
+          )}
+          <button onClick={checkStatus}>Check Trade Status</button>
         </div>
-      </form>
+      </div>
     </>
   );
 }

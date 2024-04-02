@@ -6,6 +6,8 @@ const {
 const {
   getTradeStatusUpdateTemplate,
 } = require("../emailTemplates/sendEmailNotification");
+const sendEmail = require("../utils/sendEmail");
+const { updateUserWalletBalance } = require("./userController");
 
 // Controller to create a new trade
 exports.createTrade = async (req, res) => {
@@ -96,6 +98,21 @@ exports.updateTrade = async (req, res) => {
       return res.status(404).json({ message: "Trade not found" });
     }
 
+    // Check for status update to 'success'
+    if (req.body.status === "success") {
+      trade.tradeStatus = req.body.status;
+      try {
+        // Assuming `trade.receive` correctly holds the amount to be added to the user's wallet
+        await updateUserWalletBalance(trade.userId, trade.receive);
+        console.log(`Wallet balance updated for user ID ${trade.userId}`);
+      } catch (error) {
+        console.error(
+          `Failed to update wallet balance for user ID ${trade.userId}: ${error.message}`
+        );
+        // Consider whether to return an error response or continue processing
+      }
+    }
+
     const user = await User.findById(trade.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -126,6 +143,19 @@ exports.updateTrade = async (req, res) => {
     // Update other fields if necessary
     const updatedTrade = await trade.save();
     res.status(200).json(updatedTrade);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Function to fetch trade status
+exports.getTradeStatus = async (req, res) => {
+  try {
+    const trade = await Trade.findById(req.params.id);
+    if (!trade) {
+      return res.status(404).json({ message: "Trade not found" });
+    }
+    res.status(200).json({ status: trade.tradeStatus });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

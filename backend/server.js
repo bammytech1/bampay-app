@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const userRoute = require("./routes/userRoute");
 const giftCardRoute = require("./routes/giftCardRoute");
 const tradeRoute = require("./routes/tradeRoute");
+const walletRoute = require("./routes/walletRoute");
 const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(cors(corsOptions));
 app.use("/api/users", userRoute);
 app.use("/api/giftcards", giftCardRoute);
 app.use("/api/trades", tradeRoute);
+app.use("/api/wallet", walletRoute);
 
 //Routes
 app.get("/", (req, res) => res.send("Server is ready"));

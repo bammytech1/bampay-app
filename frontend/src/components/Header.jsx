@@ -11,7 +11,7 @@ import { RESET_AUTH, logout } from "../redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ShowOnLogin, { ShowOnLogout } from "./hiddenLink/hiddenLink";
-
+import logo from "../assets/Offaxe_logo.png";
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,7 +82,13 @@ function Header() {
               {menu ? <IoClose size={"25px"} /> : <IoMenu size={"25px"} />}
             </div>
 
-            <div className="z-30">Logo</div>
+            <div className="z-30 w-48 h-auto ">
+              <img
+                src={logo}
+                style={{ width: "100%", height: "auto" }}
+                alt=""
+              />
+            </div>
             <ShowOnLogout>
               <ul className="hidden md:flex justify-between items-center gap-4">
                 <Link to={"#"}>Company</Link>

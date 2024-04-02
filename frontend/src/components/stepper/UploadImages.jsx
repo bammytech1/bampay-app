@@ -4,7 +4,12 @@ import {
   IoTrashOutline,
 } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
+import {
+  nextStep,
+  prevStep,
+  setTradeMongoId,
+  setTradeStatus,
+} from "../../redux/stepperSlice";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -13,8 +18,11 @@ import { LoadingButton } from "../extras/LoadingButton";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { createTrade } from "../../redux/features/trade/tradeSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 function UploadImages() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getData = useSelector((state) => state.step);
@@ -97,6 +105,7 @@ function UploadImages() {
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -104,51 +113,54 @@ function UploadImages() {
       toast.error("Please select an image to upload.");
       return;
     }
+
     setUploading(true);
-    setIsLoading(true); // Indicate the beginning of the upload process
+    setIsLoading(true); // Indicate the upload process has started
     let imageUrls = [];
 
-    for (let i = 0; i < images.length; i++) {
-      const formData = new FormData();
-      formData.append("file", images[i]);
-      formData.append("upload_preset", "bamstore");
-      formData.append("folder", "bamstore");
+    try {
+      // Upload images and collect URLs
+      for (let i = 0; i < images.length; i++) {
+        const formData = new FormData();
+        formData.append("file", images[i]);
+        formData.append("upload_preset", "bamstore");
+        formData.append("folder", "bamstore");
 
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(url, { method: "POST", body: formData });
         const data = await response.json();
         imageUrls.push(data.secure_url);
-        setProgress(Math.round(((i + 1) / images.length) * 100)); // Update progress after each image upload
-
-        if (i === images.length - 1) {
-          // All images have been uploaded
-          const finalFormData = {
-            ...getData.formData,
-            tradeID: getData.id,
-            imageUrls, // Add image URLs to formData
-          };
-
-          // Dispatch the createTrade action to store the data in the database
-          dispatch(createTrade(finalFormData));
-
-          toast.success("Form submission and image upload complete");
-          setUploading(false); // Reset uploading state
-          setIsLoading(false); // Upload process is finished
-          dispatch(nextStep()); // Proceed to the next step or finalize the form submission
-        }
-      } catch (error) {
-        toast.error("Failed to upload image: " + error.message);
-        setUploading(false);
-        setIsLoading(false); // Upload process failed
-        break; // Stop the form submission if any image upload fails
+        setProgress(Math.round(((i + 1) / images.length) * 100));
       }
+
+      // Prepare form data with the collected image URLs
+      const finalFormData = {
+        ...getData.formData,
+        tradeID: getData.id,
+        imageUrls,
+      };
+
+      // Dispatch the createTrade action and wait for completion
+      const actionResult = await dispatch(createTrade(finalFormData));
+      const result = unwrapResult(actionResult); // Use unwrapResult to handle the promise result
+      console.log("Trade creation result:", result);
+
+      dispatch(setTradeMongoId(result.id));
+      dispatch(setTradeStatus(result.tradeStatus));
+      console.log("idMongoId:", result._id);
+      // Handle success
+      toast.success("Form submission and image upload complete");
+      navigate("/exchange/processing");
+      dispatch(nextStep()); // Navigate to the next step
+    } catch (error) {
+      // Handle any errors
+      toast.error("Failed to create trade or upload image: " + error.message);
+    } finally {
+      setUploading(false);
+      setIsLoading(false);
     }
   };
-
   const handlePrev = () => {
+    navigate(-1);
     dispatch(prevStep());
   };
 
@@ -265,7 +277,7 @@ function UploadImages() {
               selectedImages.map((image, index) => {
                 return (
                   <div
-                    key={image}
+                    key={index}
                     className="card card-compact  m-1 bg-base-100 shadow-xl overflow-x-clip transform scale-95 hover:scale-100"
                   >
                     <figure className="w-20 h-20">

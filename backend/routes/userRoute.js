@@ -16,11 +16,14 @@ const {
   resetPassword,
 } = require("../controllers/userController");
 const { protect, adminOnly } = require("../middleware/authMiddleware");
+const { updateUserWallet } = require("../controllers/walletController");
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/verify-email", verifyEmail);
 router.post("/login", loginUser);
+router.post("/wallet/update", protect, updateUserWallet);
+router.post("/forgotpassword", forgotPassword);
 router.get("/logout", logoutUser);
 router.get("/", getUsers);
 router.get("/getUser", protect, getUser);
@@ -30,7 +33,6 @@ router.delete("/:id", protect, adminOnly, deleteUser);
 router.patch("/updateUser", protect, updateUser);
 router.patch("/updatePhoto", protect, updatePhoto);
 router.patch("/changepassword", protect, changePassword);
-router.post("/forgotpassword", forgotPassword);
 router.put("/resetpassword/:userId/:resetToken", resetPassword);
 
 module.exports = router;

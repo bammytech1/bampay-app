@@ -19,8 +19,11 @@ import { LoadingButton } from "../extras/LoadingButton";
 import { getGiftCards } from "../../redux/features/giftcards/giftCardSlice";
 import { toast } from "react-toastify";
 import { shortenText } from "../../utils";
+import { useNavigate } from "react-router-dom";
 const Buy = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { giftCards } = useSelector((state) => state.giftCard);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLocalGiftCard, setSelectedLocalGiftCard] = useState("");
   const [amount, setAmount] = useState("");
@@ -43,17 +46,14 @@ const Buy = () => {
   const [giftCardType, setGiftCardType] = useState("");
   const [rate, setRate] = useState(spendInput);
   const [isValidAmount, setIsValidAmount] = useState(true);
-  const { giftCards, isError } = useSelector((state) => state.giftCard);
   console.log("Gift cards:", giftCards);
 
   const currencies = ["USD", "AUD", "GBP", "EUR", "NGR"]; // Or dynamically extract from giftCards
 
   useEffect(() => {
+    // Fetch gift cards when the component mounts
     dispatch(getGiftCards());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(tradeId());
+    dispatch(tradeId()); // Generate a new trade ID if needed
   }, [dispatch]);
 
   useEffect(() => {
@@ -162,7 +162,7 @@ const Buy = () => {
       data.append("usdtAddress", usdtAddress);
     }
     dispatch(setFormData(Object.fromEntries(data.entries())));
-
+    navigate("/exchange/gift-code-details");
     dispatch(nextStep());
   };
 

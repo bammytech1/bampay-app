@@ -11,11 +11,11 @@ import GiftCodeDetails from "./GiftCodeDetails";
 import UploadImages from "./UploadImages";
 import Processing from "./Processing";
 import SuccessPage from "./SuccessPage";
-// import DeclinePage from "./DeclinePage";
+import DeclinePage from "./DeclinePage";
 import { useSelector } from "react-redux";
 
 export const Trading = () => {
-  const { step, totalSteps } = useSelector((state) => state.step);
+  const { step, totalSteps, tradeStatus } = useSelector((state) => state.step);
 
   const renderStep = () => {
     switch (step) {
@@ -28,8 +28,7 @@ export const Trading = () => {
       case 4:
         return <Processing />;
       case 5:
-        return <SuccessPage />;
-      // Add cases for other steps...
+        return tradeStatus === "success" ? <SuccessPage /> : <DeclinePage />;
       default:
         return <StartTrade />;
     }

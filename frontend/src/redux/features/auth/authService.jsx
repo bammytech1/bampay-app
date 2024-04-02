@@ -14,6 +14,8 @@ const register = async (userData) => {
   return response.data;
 };
 
+//wallet balance
+
 //verify email address
 
 const verifyEmail = async (emailToken) => {

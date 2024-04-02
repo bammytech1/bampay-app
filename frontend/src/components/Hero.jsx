@@ -84,7 +84,7 @@ function Hero() {
             >
               <img className="" src={hero} alt="wallet icon" />
             </motion.picture>
-            {/* <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
+            <div className=" place-self-center h-fit max-w-lg flex flex-col items-center gap-2 py-10 bg-base-300  rounded-3xl ">
               <div
                 className="w-full  flex flex-col items-center"
                 aria-multiselectable="false"
@@ -264,7 +264,7 @@ function Hero() {
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
             <div className=" border-2  py-6 rounded-3xl">
               {/* <StartTrade /> */}
             </div>

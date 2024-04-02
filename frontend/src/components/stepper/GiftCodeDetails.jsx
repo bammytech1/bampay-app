@@ -2,25 +2,35 @@ import { IoArrowBackCircleSharp, IoCopy } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormData, nextStep, prevStep } from "../../redux/stepperSlice";
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { shortenMiddle } from "../../utils";
 import { LoadingButton } from "../extras/LoadingButton";
+import { useNavigate } from "react-router-dom";
 
 function GiftCodeDetails() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const getData = useSelector((state) => state.step);
   const [startDate, setStartDate] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const formData = useSelector((state) => state.step.formData);
   const selectedGiftCard = useSelector((state) => state.step.selectedGiftCard);
 
   console.log("GiftCard selected:", selectedGiftCard);
 
+  useEffect(() => {
+    // Update local state or perform actions based on the updated formData
+  }, [formData]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
+    setIsLoading(true);
     dispatch(setFormData(Object.fromEntries(data.entries())));
     dispatch(nextStep());
+    navigate("/exchange/upload-images");
   };
   const handlePrev = () => {
     dispatch(prevStep());
