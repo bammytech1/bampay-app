@@ -15,13 +15,26 @@ const transactionSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    transactionType: {
       type: String,
       required: true,
+      enum: ["transfer", "withdrawal", "deposit"], // Example types
+    },
+    description: {
+      type: String,
     },
     status: {
       type: String,
       required: true,
+      enum: ["pending", "verified", "approved", "completed", "cancelled"],
+      default: "pending",
+    },
+    verificationCode: {
+      type: String,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
     },
   },
   {

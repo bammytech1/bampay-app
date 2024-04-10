@@ -16,13 +16,11 @@ const {
   resetPassword,
 } = require("../controllers/userController");
 const { protect, adminOnly } = require("../middleware/authMiddleware");
-const { updateUserWallet } = require("../controllers/walletController");
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/verify-email", verifyEmail);
 router.post("/login", loginUser);
-router.post("/wallet/update", protect, updateUserWallet);
 router.post("/forgotpassword", forgotPassword);
 router.get("/logout", logoutUser);
 router.get("/", getUsers);

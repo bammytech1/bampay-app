@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema(
       required: [true, "Please add a password"],
       minLength: [6, "password must be up to 6 character"],
     },
+    bankAccount: {
+      type: Object,
+      //bankName, accountName, accountNumber
+    },
     role: {
       type: String,
       required: [true],

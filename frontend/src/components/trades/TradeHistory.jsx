@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-import { Link } from "react-router-dom";
-import { IoEyeOutline } from "react-icons/io5";
+// import { Link } from "react-router-dom";
+// import { IoEyeOutline } from "react-icons/io5";
 import { getTrades } from "../../redux/features/trade/tradeSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const TradeHistory = () => {
   const dispatch = useDispatch();
-  const { trades, isLoading, isError } = useSelector((state) => state.trade);
+  const { trades, isLoading } = useSelector((state) => state.trade);
   console.log("trades:", trades);
 
   useEffect(() => {

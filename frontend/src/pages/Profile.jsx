@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { LoadingButton } from "../components/extras/LoadingButton";
 import { Link } from "react-router-dom";
 import { ExchangeFooter } from "../components/ExchangeFooter";
-import { IoArrowBack } from "react-icons/io5";
 
 function Profile() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +21,7 @@ function Profile() {
     lastName: user?.lastName || "",
     email: user?.email || "",
     phone: user?.phone || "",
+    bankAccount: user?.bankAccount || {},
     role: user?.role || "",
     oldPassword: "",
     newPassword: "",
@@ -45,11 +45,11 @@ function Profile() {
   useEffect(() => {
     if (user && user.isVerified) {
       setUserData({
-        ...userData,
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
         phone: user.phone || "",
+        bankAccount: user.bankAccount || {},
         role: user?.role || "",
         // photo: user?.photo || "",
         address: user?.address || "",
@@ -63,7 +63,24 @@ function Profile() {
     e.preventDefault();
 
     try {
-      const result = await dispatch(updateUser({ ...userData })).unwrap();
+      const result = await dispatch(
+        updateUser({
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          phone: userData.phone,
+          bankAccount: {
+            bankName: userData.bankName,
+            accountName: userData.accountName,
+            accountNumber: userData.accountNumber,
+          },
+          role: userData.role,
+          // photo: user?.photo || "",
+          address: userData.address,
+          state: userData.state,
+          country: userData.country,
+        })
+      ).unwrap();
       toast.success("Profile updated successfully");
 
       // Conditionally log out the user if the password was changed successfully
@@ -95,9 +112,6 @@ function Profile() {
       </h3>
       <div className="relative mb-6  w-full h-full flex  justify-center bg-primary rounded-[50px] py-8 px-6  ">
         {/* <BreadCrumb title="Profile" /> */}
-        <Link to={"/"} className="absolute left-6 top-10 md:left-72">
-          <IoArrowBack style={{ fontSize: "30px" }} />
-        </Link>
         <div className="container flex flex-col items-center justify-center  rounded-[50px] md:rounded-[100px] h-full bg-primary w-full   ">
           <div className="flex  items-center justify-center md:max-w-5xl ">
             <div className="flex h-fit  w-full flex-col items-center justify-center rounded-3xl   py-6">
@@ -196,41 +210,78 @@ function Profile() {
                           className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
                         />
                       </div>
+                      <div className="relative flex flex-col items-start gap-2 w-full  md:w-[47%]  ">
+                        <label htmlFor="bankName">Bank Name:</label>
+                        <input
+                          type="text"
+                          name="bankName"
+                          // required
+                          value={userData?.bankAccount?.bankName}
+                          onChange={handleInputChange}
+                          placeholder="Bank Name"
+                          className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        />
+                      </div>
+                      <div className="relative flex flex-col items-start gap-2 w-full  md:w-[47%]  ">
+                        <label htmlFor="accountName">Account Name:</label>
+                        <input
+                          type="text"
+                          name="accountName"
+                          // required
+                          value={userData?.bankAccount?.accountName}
+                          onChange={handleInputChange}
+                          placeholder="Your Account Name"
+                          className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        />
+                      </div>
+                      <div className="relative flex flex-col items-start gap-2 w-full  md:w-[47%]  ">
+                        <label htmlFor="accountNumber">Account Number:</label>
+                        <input
+                          type="number"
+                          name="accountNumber"
+                          // required
+                          value={userData?.bankAccount?.accountNumber}
+                          onChange={handleInputChange}
+                          placeholder="Your account Number"
+                          className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        />
+                      </div>
                     </div>
-                    {/* <div className="w-full grid md:grid-cols-2 md:gap-10">
-                        <div className="w-full ">
-                          <label htmlFor="address">Address:</label>
-                          <input
-                            type="text"
-                            name="address"
-                            // required
-                            value={userData?.address}
-                            onChange={handleInputChange}
-                            placeholder="Address"
-                            className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-                          />
-                          <label htmlFor="state">State:</label>
-                          <input
-                            type="text"
-                            name="state"
-                            // required
-                            value={userData?.state}
-                            onChange={handleInputChange}
-                            placeholder="Your State"
-                            className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-                          />
-                          <label htmlFor="country">Country:</label>
-                          <input
-                            type="text"
-                            name="country"
-                            // required
-                            value={userData?.country}
-                            onChange={handleInputChange}
-                            placeholder="country"
-                            className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-                          />
-                        </div>
-                      </div> */}
+
+                    <div className="w-full grid md:grid-cols-2 md:gap-10">
+                      <div className="w-full ">
+                        <label htmlFor="address">Address:</label>
+                        <input
+                          type="text"
+                          name="address"
+                          // required
+                          value={userData?.address}
+                          onChange={handleInputChange}
+                          placeholder="Address"
+                          className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        />
+                        <label htmlFor="state">State:</label>
+                        <input
+                          type="text"
+                          name="state"
+                          // required
+                          value={userData?.state}
+                          onChange={handleInputChange}
+                          placeholder="Your State"
+                          className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        />
+                        <label htmlFor="country">Country:</label>
+                        <input
+                          type="text"
+                          name="country"
+                          // required
+                          value={userData?.country}
+                          onChange={handleInputChange}
+                          placeholder="country"
+                          className="peer relative h-10 w-full rounded border border-gray px-4 text-sm text-slate-500  outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        />
+                      </div>
+                    </div>
 
                     <LoadingButton type="submit" isLoading={isLoading}>
                       Update Profile

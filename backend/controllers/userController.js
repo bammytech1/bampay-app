@@ -399,6 +399,7 @@ const updateUser = asyncHandler(async (req, res) => {
     firstName,
     lastName,
     phone,
+    bankAccount,
     address,
     state,
     country,
@@ -410,6 +411,7 @@ const updateUser = asyncHandler(async (req, res) => {
   user.firstName = firstName || user.firstName;
   user.lastName = lastName || user.lastName;
   user.phone = phone || user.phone;
+  user.bankAccount = bankAccount || user.bankAccount;
   user.address = address || user.address;
   user.state = state || user.state;
   user.country = country || user.country;
@@ -432,6 +434,7 @@ const updateUser = asyncHandler(async (req, res) => {
     email: user.email,
     role: user.role,
     phone: user.phone,
+    bankAccount: user.bankAccount,
     address: user.address,
     state: user.state,
     country: user.country,

@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 
 import Sell from "../exchange/Sell";
 import Buy from "../exchange/Buy";
-import { useNavigate } from "react-router-dom";
 
 function StartTrade() {
   // const navigate = useNavigate();
