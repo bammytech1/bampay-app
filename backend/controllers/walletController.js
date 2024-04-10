@@ -67,20 +67,24 @@ exports.initiateWithdrawal = async (req, res) => {
       status: "pending", // Assuming withdrawal needs approval
       bankAccount: user.bankAccount,
       verificationCode,
-            verified: false,
+      verified: false,
     });
 
     await transaction.save();
 
-
     // Send a verification email to the user
     const emailTemplate = {
       body: {
-        name: user.email,
+        name: user.name,
         intro: `You have requested a withdrawal from your wallet. Your withdrawal verification code is ${verificationCode} `,
         action: {
           instructions:
             "Please use the following code to verify your withdrawal request:",
+          button: {
+            color: "#3869D4", // Example button color
+            text: "Verify Withdrawal",
+            link: `${process.env.CLIENT_URL}/verify-withdrawal/${verificationCode}`,
+          },
         },
         outro:
           "If you did not request this withdrawal, please contact our support immediately.",
@@ -92,14 +96,11 @@ exports.initiateWithdrawal = async (req, res) => {
       user.email,
       "Verify your withdrawal request",
       emailTemplate
-  );
-
-  res.json({
+    );
+    res.json({
       message: "Withdrawal initiated successfully",
       transactionId: transaction._id,
-  });
-
-   
+    });
   } catch (error) {
     console.error("Withdrawal error:", error);
     res.status(500).json({ message: "Error processing withdrawal" });
@@ -108,31 +109,31 @@ exports.initiateWithdrawal = async (req, res) => {
 
 // Function to verify withdrawal with the code sent to the user
 exports.verifyWithdrawal = async (req, res) => {
-  const user = await User.findById(userId);
   const { userId, transactionId, verificationCode } = req.body;
   const transaction = await Transaction.findById(transactionId);
 
   if (!transaction) {
-      return res.status(404).json({ message: "Transaction not found" });
+    return res.status(404).json({ message: "Transaction not found" });
   }
 
   if (transaction.sender.toString() !== userId) {
-      return res.status(403).json({ message: "Unauthorized action" });
+    return res.status(403).json({ message: "Unauthorized action" });
   }
 
   if (transaction.verificationCode !== verificationCode) {
-      return res.status(400).json({ message: "Invalid verification code" });
+    return res.status(400).json({ message: "Invalid verification code" });
   }
 
   transaction.verified = true;
   await transaction.save();
 
   // Notify the admin for approval
-   // Send notification to the admin
-   const adminEmailTemplate = {
+  // Send notification to the admin
+  const user = await User.findById(transaction.sender);
+  const adminEmailTemplate = {
     body: {
       name: "Admin",
-      intro: `A new withdrawal request has been initiated by ${user.email}.`,
+      intro: `A new withdrawal request has been initiated by ${user.firstName}.`,
       action: {
         instructions:
           "Please review the withdrawal request in the admin panel.",
@@ -148,17 +149,13 @@ exports.verifyWithdrawal = async (req, res) => {
 
   sendEmail(
     "New Withdrawal Request",
-    "email": "bayodegbenga256@gmail.com",
+    "bayodegbenga256@gmail.com",
     "A new withdrawal request needs your approval",
     adminEmailTemplate
   );
-
   res.json({
-    message: "Withdrawal initiated successfully",
-    transactionId: transaction._id,
+    message: "Withdrawal verified successfully, pending admin approval.",
   });
-
-  res.json({ message: "Withdrawal verified successfully, pending admin approval." });
 };
 
 exports.approveWithdrawal = async (req, res) => {
@@ -170,21 +167,39 @@ exports.approveWithdrawal = async (req, res) => {
   }
 
   // Check if the transaction is verified before approving
-  if (transaction.status !== 'verified') {
+  if (transaction.verified !== true) {
     return res.status(400).json({ message: "Transaction not verified" });
   }
 
-  transaction.status = 'approved';
+  transaction.status = "approved";
   await transaction.save();
 
   // Notify the user about the approved withdrawal
   const user = await User.findById(transaction.sender);
+  const approveEmailTemplate = {
+    body: {
+      name: user.firstName,
+      intro: `A new update on your withdrawal request has been approved for ${transaction.amount} to your Bank Details: ${transaction.bankAccount}.`,
+      action: {
+        instructions:
+          "you can check for recent update on your withdrawal in your dashboard.",
+        button: {
+          color: "#3869D4",
+          text: "Check Status",
+          link: `${process.env.CLIENT_URL}/withdrawal-requests/${transaction._id}`,
+        },
+      },
+      outro:
+        "If you did not request this withdrawal, please contact our support immediately.",
+    },
+  };
+
   sendEmail(
+    "New Withdrawal Request",
     user.email,
     "Withdrawal Approved",
-    `Your withdrawal of ${transaction.amount} has been approved and will be processed shortly.`
+    approveEmailTemplate
   );
-
   res.json({ message: "Withdrawal approved successfully" });
 };
 
@@ -197,14 +212,40 @@ exports.finalizeWithdrawal = async (req, res) => {
   }
 
   // Check if the transaction is approved before finalizing
-  if (transaction.status !== 'approved') {
+  if (transaction.status !== "approved") {
     return res.status(400).json({ message: "Transaction not approved" });
   }
 
   // Assuming the payment is processed here manually or through some process
 
-  transaction.status = 'completed'; // Mark the transaction as completed
+  transaction.status = "completed"; // Mark the transaction as completed
   await transaction.save();
+  const user = await User.findById(transaction.sender);
+  // Notify the user about the approved withdrawal
+  const completedEmailTemplate = {
+    body: {
+      name: user.firstName,
+      intro: `Your withdrawal request is now completed for ${transaction.amount} to your Bank Details: ${transaction.bankAccount}.`,
+      action: {
+        instructions:
+          "you can check for recent update on your withdrawal in your dashboard.",
+        button: {
+          color: "#3869D4",
+          text: "Check Status",
+          link: `${process.env.CLIENT_URL}/withdrawal-requests/${transaction._id}`,
+        },
+      },
+      outro:
+        "If you did not request this withdrawal, please contact our support immediately.",
+    },
+  };
+
+  sendEmail(
+    "Withdrawal completed",
+    user.email,
+    "Withdrawal completed",
+    completedEmailTemplate
+  );
 
   res.json({ message: "Withdrawal completed successfully" });
 };
@@ -223,8 +264,33 @@ exports.cancelWithdrawal = async (req, res) => {
   await user.save();
 
   // Update the transaction status to 'cancelled'
-  transaction.status = 'cancelled';
+  transaction.status = "cancelled";
   await transaction.save();
 
-  res.json({ message: "Withdrawal cancelled successfully" });
+  // Notify the user about the approved withdrawal
+  const canceledEmailTemplate = {
+    body: {
+      name: user.firstName,
+      intro: `A new update on your withdrawal request has been cancelled for ${transaction.amount} to your Bank Details: ${transaction.bankAccount}.`,
+      action: {
+        instructions:
+          "you can check for recent update on your withdrawal in your dashboard.",
+        button: {
+          color: "#3869D4",
+          text: "Check Status",
+          link: `${process.env.CLIENT_URL}/withdrawal-requests/${transaction._id}`,
+        },
+      },
+      outro:
+        "If you did not request this withdrawal, please contact our support immediately.",
+    },
+  };
+
+  sendEmail(
+    "Withdrawal cancellation",
+    user.email,
+    "Withdrawal canceled",
+    canceledEmailTemplate
+  );
+  res.json({ message: "Withdrawal canceled successfully" });
 };

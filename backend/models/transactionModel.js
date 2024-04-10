@@ -9,7 +9,7 @@ const transactionSchema = mongoose.Schema(
     sender: {
       type: String,
       required: true,
-      //   ref: "User",
+      ref: "User",
     },
     receiver: {
       type: String,
@@ -20,6 +20,11 @@ const transactionSchema = mongoose.Schema(
       required: true,
       enum: ["transfer", "withdrawal", "deposit"], // Example types
     },
+    bankAccount: {
+      bankName: { type: String },
+      accountName: { type: String },
+      accountNumber: { type: String },
+    },
     description: {
       type: String,
     },
@@ -29,6 +34,7 @@ const transactionSchema = mongoose.Schema(
       enum: ["pending", "verified", "approved", "completed", "cancelled"],
       default: "pending",
     },
+
     verificationCode: {
       type: String,
     },

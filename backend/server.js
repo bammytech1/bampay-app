@@ -8,6 +8,7 @@ const userRoute = require("./routes/userRoute");
 const giftCardRoute = require("./routes/giftCardRoute");
 const tradeRoute = require("./routes/tradeRoute");
 const walletRoute = require("./routes/walletRoute");
+const transactionRoute = require("./routes/transactionRoute");
 const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
@@ -32,6 +33,7 @@ app.use("/api/users", userRoute);
 app.use("/api/giftcards", giftCardRoute);
 app.use("/api/trades", tradeRoute);
 app.use("/api/wallet", walletRoute);
+app.use("/api/transfer", transactionRoute);
 
 //Routes
 app.get("/", (req, res) => res.send("Server is ready"));

@@ -1,45 +1,125 @@
 const asyncHandler = require("express-async-handler");
 const Transaction = require("../models/transactionModel");
 const User = require("../models/userModel");
-const { stripe } = require("../utils");
-const axios = require("axios");
+const sendEmail = require("../utils/sendEmail");
+const { default: mongoose } = require("mongoose");
 
 // Transfer Funds
 const transferFund = asyncHandler(async (req, res) => {
-  // Validation
+  const { amount, senderEmail, receiverEmail, description } = req.body;
+  const numericAmount = parseFloat(amount); // Ensure amount is a number
 
-  const { amount, sender, receiver, description, status } = req.body;
-  if (!amount || !sender || !receiver) {
-    res.status(400);
-    throw new Error("Please fill in all fields");
-  }
-  // Check Sender's account balance
-  const user = await User.findOne({ email: sender });
-  if (user.balance < amount) {
-    res.status(400);
-    throw new Error("Insufficient balance");
+  if (!numericAmount || !senderEmail || !receiverEmail) {
+    return res
+      .status(400)
+      .json({ message: "Please provide all required fields." });
   }
 
-  // save the transaction
-  const newTransaction = await Transaction.create(req.body);
+  // Using email to find users, but using user IDs is recommended
+  const sender = await User.findOne({ email: senderEmail });
+  const receiver = await User.findOne({ email: receiverEmail });
 
-  // decrease the sender's balance
-  await User.findOneAndUpdate(
-    { email: sender },
-    {
-      $inc: { balance: -amount },
-    }
-  );
+  if (!sender) {
+    return res.status(404).json({ message: "Sender not found." });
+  }
 
-  // increase the receiver's balance
-  await User.findOneAndUpdate(
-    { email: receiver },
-    {
-      $inc: { balance: amount },
-    }
-  );
+  if (!receiver) {
+    return res.status(404).json({ message: "Receiver not found." });
+  }
 
-  res.status(200).json({ message: "Transaction successful" });
+  if (sender.walletBalance < numericAmount) {
+    return res.status(400).json({ message: "Insufficient balance." });
+  }
+
+  // Start a session to execute MongoDB transaction
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+
+    // Create the transaction record
+    const transaction = new Transaction({
+      amount: numericAmount,
+      sender: sender._id,
+      receiver: receiver._id,
+      transactionType: "transfer",
+      description,
+      status: "completed", // assuming instant transfer
+    });
+    await transaction.save({ session });
+
+    // Update balances
+    sender.walletBalance -= numericAmount;
+    receiver.walletBalance += numericAmount;
+    await sender.save({ session });
+    await receiver.save({ session });
+
+    await session.commitTransaction();
+
+    const sendUser = await User.findById(transaction.sender);
+    const receiveUser = await User.findById(transaction.receiver);
+
+    const moneyOutEmailTemplate = {
+      body: {
+        name: sendUser.firstName,
+        intro: `Your transfer request is now completed for ${amount}NGN to  ${receiveUser.email}.`,
+        action: {
+          instructions: "you can check for recent update in your dashboard.",
+          button: {
+            color: "#3869D4",
+            text: "Check Status",
+            link: `${process.env.CLIENT_URL}/withdrawal-requests/${transaction._id}`,
+          },
+        },
+        outro:
+          "If you did not request this transfer, please contact our support immediately.",
+      },
+    };
+
+    const moneyInEmailTemplate = {
+      body: {
+        name: receiveUser.firstName,
+        intro: `${sender.email} has transferred  ${amount}NGN to your wallet.`,
+        action: {
+          instructions: "you can check for recent update in your dashboard.",
+          button: {
+            color: "#3869D4",
+            text: "Check Status",
+            link: `${process.env.CLIENT_URL}/withdrawal-requests/${transaction._id}`,
+          },
+        },
+        outro:
+          "If you did not request this transfer, please contact our support immediately.",
+      },
+    };
+
+    // Send email to the sender
+    sendEmail(
+      "Transfer Completed",
+      sender.email,
+      `Your transfer of ${amount} to ${receiver.email} has been completed.`,
+      moneyOutEmailTemplate
+    );
+
+    // Send email to the receiver
+    sendEmail(
+      "Funds Received",
+      receiver.email,
+      `${sender.email} has transferred ${amount} to your account.`,
+      moneyInEmailTemplate
+    );
+
+    res.status(200).json({
+      message: "Transaction successful",
+      transactionId: transaction._id,
+    });
+  } catch (error) {
+    await session.abortTransaction();
+    res
+      .status(500)
+      .json({ message: "Transaction failed", error: error.message });
+  } finally {
+    session.endSession();
+  }
 });
 
 // verify Account
@@ -64,162 +144,10 @@ const getUserTransactions = asyncHandler(async (req, res) => {
   res.status(200).json(transactions);
 });
 
-// Deposit Funds With Stripe
-const depositFundStripe = asyncHandler(async (req, res) => {
-  const { amount } = req.body;
-  console.log(amount);
-  const user = await User.findById(req.user._id);
-
-  // Create stripe customer
-  if (!user.stripeCustomerId) {
-    const customer = await stripe.customers.create({ email: user.email });
-    user.stripeCustomerId = customer.id;
-    user.save();
-  }
-
-  // Create Stripe Session
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "Shopito Wallet Deposit",
-            description: `Make a deposit of $${amount} to shopito wallet`,
-          },
-          unit_amount: amount * 100,
-        },
-        quantity: 1,
-      },
-    ],
-    customer: user.stripeCustomerId,
-    success_url:
-      process.env.FRONTEND_URL + `/wallet?payment=successful&amount=${amount}`,
-    cancel_url: process.env.FRONTEND_URL + "/wallet?payment=failed",
-  });
-
-  // console.log(session);
-  console.log(session.amount_total);
-
-  return res.json(session);
-});
-
-// Deposit Fund Stripe
-const depositFund = async (customer, data, description, source) => {
-  await Transaction.create({
-    amount:
-      source === "stripe" ? data.amount_subtotal / 100 : data.amount_subtotal,
-    sender: "Self",
-    receiver: customer.email,
-    description: description,
-    status: "success",
-  });
-
-  // increase the receiver's balance
-  await User.findOneAndUpdate(
-    { email: customer.email },
-    {
-      $inc: {
-        balance:
-          source === "stripe"
-            ? data.amount_subtotal / 100
-            : data.amount_subtotal,
-      },
-    }
-  );
-};
-
-// stripe webhook
-// const endpointSecret =
-//   "whsec_c22fcc4d163d10c1cdcaa13c55aa2cec4ad64c5279e7631856ec96852e6d9d5a";
-const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
-
-const webhook = asyncHandler(async (req, res) => {
-  console.log("Webhook start");
-  const sig = req.headers["stripe-signature"];
-
-  let event;
-  let data;
-  let eventType;
-
-  try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-    console.log("Webhook verified");
-  } catch (err) {
-    console.log("Verif Error ZT", err);
-    res.status(400).send(`Webhook Error: ${err.message}`);
-    return;
-  }
-  data = event.data.object;
-  eventType = event.type;
-
-  // Handle the event
-  if (eventType === "checkout.session.completed") {
-    stripe.customers
-      .retrieve(data.customer)
-      .then(async (customer) => {
-        console.log(customer.email);
-        console.log("data:", data.amount_total);
-        const description = "Stripe Deposit";
-        const source = "stripe";
-        // save the transaction
-        try {
-          depositFund(customer, data, description, source);
-        } catch (error) {
-          console.log(err);
-        }
-      })
-      .catch((err) => console.log(err.message));
-  }
-
-  res.send().end();
-});
-
-// Deposit Fund FLW
-const depositFundFLW = asyncHandler(async (req, res) => {
-  const { transaction_id } = req.query;
-
-  // Confirm transaction
-  const url = `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`;
-
-  const response = await axios({
-    url,
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: process.env.FLW_SECRET_KEY,
-    },
-  });
-
-  // console.log(response.data.data);
-  const { amount, customer, tx_ref } = response.data.data;
-  // console.log(amount);
-  // console.log(typeof amount);
-  // console.log(customer);
-
-  const successURL = process.env.FRONTEND_URL + "/wallet?payment=successful";
-  const failureURL = process.env.FRONTEND_URL + "/wallet?payment=failed";
-  if (req.query.status === "successful") {
-    const data = {
-      amount_subtotal: amount,
-    };
-    const description = "Flutterwave Deposit";
-    const source = "flutterwave";
-    depositFund(customer, data, description, source);
-    res.redirect(successURL);
-  } else {
-    res.redirect(failureURL);
-  }
-});
+// Deposit Funds With BankTransfer
 
 module.exports = {
   transferFund,
   verifyAccount,
   getUserTransactions,
-  depositFundStripe,
-  webhook,
-  depositFundFLW,
 };
